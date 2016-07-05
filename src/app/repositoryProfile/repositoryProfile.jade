@@ -1,0 +1,60 @@
+.container
+    div(ng-include="'app/components/navbar/navbar.html'")
+    .jumbotron.text-center
+      h1 GitHub API
+      p.lead
+        img(src='assets/images/yeoman.png', alt="I'm Yeoman")
+        br
+        |       Repository Profile
+
+
+
+      .container-fluid.well.span6
+        .row-fluid
+          .col-md-3
+            img.img-circle(src="{{repository.owner.avatar_url}}" style="height: 100px; width: 100px")
+            br
+            h6 Owner : {{repository.owner.login}}
+            br
+            br
+          .col-md-6
+            h3 {{repository.name}}
+            h6 Homepage :
+              a(href="{{repository.homepage}}") &nbsp;{{repository.homepage}}
+            h6 Clone :
+              mark {{repository.clone_url}}
+            h6
+              i(class="glyphicon glyphicon-exclamation-sign")
+              |  Open Issues : {{repository.open_issues}}
+            h6
+              i(class="glyphicon glyphicon-random")
+              |  Forks : {{repository.forks_count}}
+            h6
+              i(class="glyphicon glyphicon-eye-open")
+              |  Watchers : {{repository.watchers}}
+            h6
+              a(href="{{repository.html_url}}") More...
+          .col-md-3
+            h4 Issues &nbsp;
+              a(ui-sref='issueForm({owner : repository.owner.login, repo : repository.name})').btn.btn-success New issue
+
+            .list-group-item(ng-repeat="issue in issues ")
+              i.glyphicon.glyphicon-exclamation-sign &nbsp;
+              b {{issue.state}}
+              br
+              a(href='{{issue.html_url}}') {{issue.title}}
+
+            .list-group-item
+              a(href='{{repository.html_url}}/issues').text-primary More...
+
+
+
+
+
+
+
+    hr
+    .footer
+      p
+        | With &hearts; from
+        a(href='https://twitter.com/Swiip') @Swiip

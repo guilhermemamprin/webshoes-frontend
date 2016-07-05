@@ -1,0 +1,56 @@
+.container
+    div(ng-include="'app/components/navbar/navbar.html'")
+    .jumbotron.text-center
+      h1 GitHub API
+      p.lead
+        img(src='assets/images/yeoman.png', alt="I'm Yeoman")
+        br
+        |       User Profile
+
+
+
+      .container-fluid.well.span3
+        .row-fluid
+          .col-md-4
+            img.img-circle(src="{{user.avatar_url}}" style="height: 100px; width: 100px")
+            h3 {{user.name}}
+            h6 {{user.email}}
+
+
+
+            h6 Public Repositories : {{user.public_repos}}
+              a(href="{{user.homepage}}") &nbsp;{{user.homepage}}
+            .row
+              .col-md-6
+                h4.text-primary {{user.followers}}
+                h6 Followers
+
+              .col-md-6
+                h4.text-primary {{user.following}}
+                h6 Following
+          .col-md-4
+            .list-group
+              .list-group-item-heading.disabled
+                h4
+                  b Popular Repositories
+              .list-group-item(ng-repeat="repo in repos ")
+                a( ui-sref='repositoryProfile({full_name : repo.full_name})') {{repo.name}}
+              .list-group-item
+                a(href='{{user.html_url}}?tab=repositories').text-primary More...
+      .row
+        h3 Organizations
+        .col-sm-6.col-md-4(ng-repeat="org in orgs | orderBy:'rank'")
+          .thumbnail
+            img.pull-right.img-circle(ng-src='{{org.avatar_url}}')
+            .caption
+              h3 {{org.login}}
+              //- a( ui-sref='orgProfile({full_name : org.full_name })') Profile {{org.full_name}}
+
+
+
+
+    hr
+    .footer
+      p
+        | With &hearts; from
+        a(href='https://twitter.com/Swiip') @Swiip

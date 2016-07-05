@@ -1,0 +1,23 @@
+.container
+    div(ng-include src="'app/components/navbar/navbar.html'")
+    .jumbotron.text-center
+      h1 About
+      p.lead
+        br
+        |       Technologies used in this project
+
+
+    .row
+      .col-sm-6.col-md-4(ng-repeat="awesomeThing in about.awesomeThings | orderBy:'rank'")
+        .thumbmail
+          img.pull-right(ng-src='assets/images/{{awesomeThing.logo}}', alt='{{awesomeThing.title}}')
+          .caption
+            h3 {{awesomeThing.title}}
+            p {{awesomeThing.description}}
+            p
+              a(ng-href='{{awesomeThing.url}}') {{awesomeThing.url}}
+    hr
+    .footer
+      p
+        | With &hearts; from
+        a(href='https://twitter.com/Swiip') @Swiip

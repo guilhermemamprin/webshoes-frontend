@@ -1,0 +1,36 @@
+<nav class="navbar navbar-static-top navbar-inverse" ng-controller="NavbarController as navbar">
+  <div class="container-fluid">
+    <div class="navbar-item-cell">
+      <a class="navbar-brand" ui-sref="userProfile({login : $window.localStorage.getItem('username')}) ">
+        <span class="glyphicon glyphicon-home"></span> Home
+      </a>
+    </div>
+
+    <div class="navbar-item-cell navbar-item-cell-fill-parent" id="bs-example-navbar-collapse-6">
+      <ul class="nav navbar-nav">
+        <li ng-class="{ active: navbar.isActive('home')}"><a ui-sref='home'>Profiles</a></li>
+        <li ng-class="{ active: navbar.isActive('repositories')}" ><a ui-sref='repositories'>Repositories</a></li>
+         <li ng-class="{ active: navbar.isActive('about')}" ><a ui-sref='about'>About</a></li>
+         <li ng-class="{ active: navbar.isActive('issues')}" ><a ui-sref='issues'>Issues</a></li>
+
+         <li > <a class="btn btn-default" href="https://github.com/login/oauth/authorize?client_id=2e5699877d1e6044b10a&scope=repo,read:org,public_repo" >Authorize</a></li>
+
+        <!-- <li><a ng-href="#">Contact</a></li> -->
+      </ul>
+
+
+    </div>
+
+    <div class="navbar-item-cell pull-right">
+      <ul class="nav navbar-nav">
+        <li>
+          <h5 style="color: #fff">
+            Logged in as: {{$window.localStorage.getItem('username')}}
+          </h5>
+
+      </ul>
+    </div>
+
+
+  </div>
+</nav>

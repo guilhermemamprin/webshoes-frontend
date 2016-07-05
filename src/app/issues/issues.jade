@@ -1,0 +1,32 @@
+.container
+    div(ng-include="'app/components/navbar/navbar.html'")
+    .jumbotron.text-center
+      h1 GitHub API
+      p.lead
+        img(src='assets/images/yeoman.png', alt="I'm Yeoman")
+        br
+        |       Search for GitHub profiles
+
+
+    .row
+      .col-md-6.col-md-offset-3
+        .form-group
+          label(for="search") Search
+          input(type="text" class="form-control" id="search" ng-model="issues.search" ng-change="main.change()")
+
+
+    .row
+      .col-sm-6.col-md-4(ng-repeat="issue in main.issues | orderBy:'rank'")
+        .thumbnail
+          img.pull-right(ng-src='{{issue.avatar_url}}')
+          .caption
+            h3 {{issue.login}}
+            p
+              a( ng-href = "{{issue.html_url}}") GitHub Page
+
+
+    hr
+    .footer
+      p
+        | With &hearts; from
+        a(href='https://twitter.com/Swiip') @Swiip

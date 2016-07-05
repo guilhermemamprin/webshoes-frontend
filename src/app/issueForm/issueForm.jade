@@ -1,0 +1,30 @@
+.container
+    div(ng-include="'app/components/navbar/navbar.html'")
+    .jumbotron.text-center
+      h1 GitHub API
+      p.lead
+        img(src='assets/images/yeoman.png', alt="I'm Yeoman")
+        br
+        |       Create new Issue
+
+
+      form(name="issueCreatingForm" ng-submit="issueForm.submitForm(issueCreatingForm.$valid, issue)" novalidate)
+        {{issueForm.repo}}
+        .container-fluid.well
+          .row-fluid
+            .col-md-3
+              img.img-circle(src="{{user.avatar_url}}" style="height: 100px; width: 100px")
+            .col-md-6
+              .form-group
+                label(for="issueNameInput").pull-left Title
+                input(type="text" id="issueNameInput" ng-model="issue.title" placeholder="Title" required).form-control
+              .form-group
+                label(for="issueInput").pull-left Write
+                textarea(rows=5 placeholder="Leave a comment" ng-model="issue.body" required).form-control
+              button(type="submit").btn.btn-default Submit
+
+    hr
+    .footer
+      p
+        | With &hearts; from
+        a(href='https://twitter.com/Swiip') @Swiip

@@ -1,0 +1,44 @@
+.container
+    div(ng-include="'app/components/navbar/navbar.html'")
+    .jumbotron.text-center
+      h1 GitHub API
+      p.lead
+        img(src='assets/images/yeoman.png', alt="I'm Yeoman")
+        br
+        |       Search for GitHub repositories!
+
+
+    .row
+
+      .col-md-6.col-md-offset-3
+        .input-group
+          span.input-group-addon Search
+          input(type="text" class="form-control" id="search" ng-model="repositories.search" ng-change="repositories.inputChange()")
+      .col-md-3
+        select.form-control(id="filter" ng-model="repositories.filter" ng-change="repositories.inputChange()")
+            option(value="all") All Repositories
+            option(value="mine") My Repositories
+    br
+
+
+
+
+
+    .row
+      .col-sm-6.col-md-4(ng-repeat="awesomeThing in repositories.awesomeThings | orderBy:'rank'")
+        .thumbnail
+          img.pull-right.img-circle(ng-src='{{awesomeThing.owner.avatar_url}}')
+          .caption
+            h4 {{awesomeThing.name}}
+            p Owner: {{awesomeThing.owner.login}}
+            p
+              a( ui-sref='repositoryProfile({full_name : awesomeThing.full_name })') View Profile
+            p
+              a( ng-href = "{{awesomeThing.html_url}}") GitHub Link
+
+
+    hr
+    .footer
+      p
+        | With &hearts; from
+        a(href='https://twitter.com/Swiip') @Swiip

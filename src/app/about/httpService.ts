@@ -1,0 +1,5 @@
+module testApp {
+  'use strict';
+  
+
+}
