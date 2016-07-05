@@ -1,29 +1,31 @@
-.container
-    div(ng-include="'app/components/navbar/navbar.html'")
-    .jumbotron.text-center
-      h1 GitHub API
-      p.lead
-        img(src='assets/images/yeoman.png', alt="I'm Yeoman")
-        br
-        |       Search for GitHub profiles
-    .row
-      .col-md-6.col-md-offset-3
-        .form-group
-          .input-group
-            span.input-group-addon Search
-            input(type="text" class="form-control" id="search" ng-model="main.search" ng-change="main.change()")
-    .row
-      .col-sm-6.col-md-4(ng-repeat="awesomeThing in main.awesomeThings | orderBy:'rank'")
-        .thumbnail
-          img.pull-right.img-circle(ng-src='{{awesomeThing.avatar_url}}')
-          .caption
+div(ng-include="'app/views/base.html'")
+div(id="all")
+  div(id="content")
+    .container
+      .jumbotron.text-center
+        h1 Webshoes
+        p.lead
+          br
+          |       Artigos esportivos
+      .row
+        .col-md-6.col-md-offset-3
+          .form-group
+            .input-group
+              span.input-group-addon Buscar
+              input(type="text" class="form-control" id="search" ng-model="main.search" ng-change="main.change()")
+      .row
+        .col-sm-6.col-md-4(ng-repeat="awesomeThing in main.awesomeThings | orderBy:'rank'")
+          .thumbnail
+            img.pull-right.img-circle(ng-src='{{awesomeThing.avatar_url}}')
+            .caption
 
-            a( ui-sref='userProfile({login : awesomeThing.login })')
-              h3 {{awesomeThing.login}}
-            p
-              a( ng-href = "{{awesomeThing.html_url}}") GitHub Page
-    hr
-    .footer
-      p
-        | With &hearts; from
-        a(href='https://twitter.com/Swiip') @Swiip
+              a( ui-sref='userProfile({login : awesomeThing.login })')
+                h3 {{awesomeThing.login}}
+              p
+                a( ng-href = "{{awesomeThing.html_url}}") GitHub Page
+      hr
+      .footer
+        p
+          | With &hearts; from
+          a(href='https://twitter.com/Swiip') @Swiip
+div(ng-include="'app/views/footer.html'")
