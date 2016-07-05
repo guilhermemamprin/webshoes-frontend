@@ -3,22 +3,22 @@ To implement frontend, we are using Ubuntu 16.04 and OS x 10.11.4 El Capitan as 
 
 #Install
 
-##Node and NPM <br />
-**OS X** <br />
+##Node and NPM
+**OS X**
 ```
-brew install node --without-npm <br />
-echo prefix=~/.npm-packages >> ~/.npmrc <br />
-curl -L https://www.npmjs.com/install.sh | sh <br />
-export PATH="$HOME/.node/bin:$PATH" <br /> <br />
+brew install node --without-npm
+echo prefix=~/.npm-packages >> ~/.npmrc
+curl -L https://www.npmjs.com/install.sh | sh
+export PATH="$HOME/.node/bin:$PATH"
 ```
-**Ubuntu** <br />
-```apt-get install nodejs ```<br /> <br />
+**Ubuntu**
+```apt-get install nodejs ```
 
-## typescript and dependencies  <br />
+## typescript and dependencies
 ```
-npm install -g typescript <br />
-npm install <br />
-bower install <br /> 
+npm install -g typescript
+npm install
+bower install
 ```
 
 #Running
