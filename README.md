@@ -5,18 +5,21 @@ To implement frontend, we are using Ubuntu 16.04 and OS x 10.11.4 El Capitan as 
 
 ##Node and NPM <br />
 **OS X** <br />
+```
 brew install node --without-npm <br />
 echo prefix=~/.npm-packages >> ~/.npmrc <br />
 curl -L https://www.npmjs.com/install.sh | sh <br />
 export PATH="$HOME/.node/bin:$PATH" <br /> <br />
-
+```
 **Ubuntu** <br />
-apt-get install nodejs <br /> <br />
+```apt-get install nodejs ```<br /> <br />
 
 ## typescript and dependencies  <br />
+```
 npm install -g typescript <br />
 npm install <br />
 bower install <br /> 
+```
 
 #Running
-gulp serve
+```gulp serve```
