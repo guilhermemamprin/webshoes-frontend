@@ -1,4 +1,4 @@
-module testApp {
+module webShoes {
   'use strict';
 
   class Thing {
