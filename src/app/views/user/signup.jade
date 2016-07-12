@@ -29,7 +29,7 @@ div(id="all")
             .form-group
               label(for='email') Email
               |                                 
-              input#email.form-control(type='text')
+              input#email.form-control(ng-model='userCtrl.user.email' type='email')
             |                             
             .form-group
               label(for='password') Senha                             
@@ -57,19 +57,19 @@ div(id="all")
                                
           hr
           |                         
-          form(action='customer-orders.html', method='post')
+          form
             .form-group
               label(for='email') Email
               |                                 
-              input#email.form-control(type='text')
+              input#email.form-control(ng-model='userCtrl.userLogin.email' type='text')
             |                             
             .form-group
               label(for='password') Senha
               |                                 
-              input#password.form-control(type='password')
+              input#password.form-control(ng-model= 'userCtrl.userLogin.password' type='password')
             |                             
             .text-center
-              button.btn.btn-primary(type='submit')
+              button.btn.btn-primary(ng-click='userCtrl.onSignIn()')
                 i.fa.fa-sign-in
                 |  Entrar
       
