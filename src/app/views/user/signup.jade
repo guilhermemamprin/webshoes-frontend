@@ -20,11 +20,11 @@ div(id="all")
                                   
           hr
           |                         
-          form(action='customer-orders.html', method='post')
+          form
             .form-group
               label(for='name') Nome
               |                                 
-              input#name.form-control(type='text')
+              input#name.form-control(type='text' ng-model="userCtrl.user.name")
             |                             
             .form-group
               label(for='email') Email
@@ -32,14 +32,22 @@ div(id="all")
               input#email.form-control(type='text')
             |                             
             .form-group
-              label(for='password') Senha
-              |                                 
-              input#password.form-control(type='password')
-            |                             
+              label(for='password') Senha                             
+              input#password.form-control(type='password' ng-model="userCtrl.user.password")
+             .form-group
+              label(for='phone') Telefone                            
+              input#phone.form-control(type='phone'  ng-model="userCtrl.user.phone")
+             .form-group
+              label(for='rg') RG                                 
+              input#rg.form-control(type='text'  ng-model="userCtrl.user.rg")
+             .form-group
+              label(for='cpf') CPF                               
+              input#cpf.form-control(type='text'  ng-model="userCtrl.user.cpf")                             
             .text-center
-              button.btn.btn-primary(type='submit')
+              button.btn.btn-primary(ng-click="userCtrl.onSignUp()")
                 i.fa.fa-user-md
                 |  Registrar
+
       |                 
       .col-md-6
         .box
