@@ -47,6 +47,13 @@ module webShoes {
         controllerAs: 'productCtrl'
       });
 
+       .state('productList', {
+        url: '/productList',
+        templateUrl: 'app/views/product/productList.html',
+        controller: 'ProductController',
+        controllerAs: 'productCtrl'
+      });
+
       // .state('about', {
       //   url: '/about',
       //   templateUrl: 'app/about/about.html',
