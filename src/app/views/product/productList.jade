@@ -1,0 +1,24 @@
+div(ng-include="'app/views/base.html'")
+div(id="all")
+  .container
+    .col-md-12
+      div(id="content")
+        div(ng-repeat="product in productCtrl.productList")
+          
+            
+              .flip-container
+                .flipper
+                  .front
+                    a(href='detail.html')
+                      img.img-responsive(ng-src = '{{product.image}}', alt='')
+                  .back
+                    a(href='detail.html')
+                      img.img-responsive(ng-src = '{{product.image}}', alt='')
+              a.invisible(href='detail.html')
+                img.img-responsive(ng-src = '{{product.image}}', alt='')
+              .text
+                h3
+                  a(href='detail.html') {{product.text}}
+                p.price R$ {{product.price}}
+
+div(ng-include="'app/views/footer.html'")
