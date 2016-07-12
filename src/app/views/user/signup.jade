@@ -1,0 +1,68 @@
+div(ng-include="'app/views/base.html'")
+div(id="all")
+  div(id="content")
+    .container
+      .col-md-12
+        ul.breadcrumb
+          li
+            a(href='#') Home
+          |                         
+          li Registrar-se / Entrar
+      |                 
+      .col-md-6
+        .box
+          h1 Nova Conta
+          |                         
+          p.lead Ainda não fez seu cadastro?
+          |                         
+          p
+            | Cadastre-se agora e tenha acesso a nossas ofertas e promoções imperdíveis!  
+                                  
+          hr
+          |                         
+          form(action='customer-orders.html', method='post')
+            .form-group
+              label(for='name') Nome
+              |                                 
+              input#name.form-control(type='text')
+            |                             
+            .form-group
+              label(for='email') Email
+              |                                 
+              input#email.form-control(type='text')
+            |                             
+            .form-group
+              label(for='password') Senha
+              |                                 
+              input#password.form-control(type='password')
+            |                             
+            .text-center
+              button.btn.btn-primary(type='submit')
+                i.fa.fa-user-md
+                |  Registrar
+      |                 
+      .col-md-6
+        .box
+          h1 Login
+          |                         
+          p.lead Já possui cadastro?
+                               
+          hr
+          |                         
+          form(action='customer-orders.html', method='post')
+            .form-group
+              label(for='email') Email
+              |                                 
+              input#email.form-control(type='text')
+            |                             
+            .form-group
+              label(for='password') Senha
+              |                                 
+              input#password.form-control(type='password')
+            |                             
+            .text-center
+              button.btn.btn-primary(type='submit')
+                i.fa.fa-sign-in
+                |  Entrar
+      
+div(ng-include="'app/views/footer.html'")
