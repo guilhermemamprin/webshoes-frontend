@@ -13,16 +13,7 @@ div(id="all")
             .input-group
               span.input-group-addon Buscar
               input(type="text" class="form-control" id="search" ng-model="main.search" ng-change="main.change()")
-      .row
-        .col-sm-6.col-md-4(ng-repeat="awesomeThing in main.awesomeThings | orderBy:'rank'")
-          .thumbnail
-            img.pull-right.img-circle(ng-src='{{awesomeThing.avatar_url}}')
-            .caption
 
-              a( ui-sref='userProfile({login : awesomeThing.login })')
-                h3 {{awesomeThing.login}}
-              p
-                a( ng-href = "{{awesomeThing.html_url}}") GitHub Page
       hr
       .footer
         p

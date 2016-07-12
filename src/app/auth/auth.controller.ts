@@ -1,4 +1,4 @@
-module testApp {
+module webShoes {
   'use strict';
 
   export class AuthController {

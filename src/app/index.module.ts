@@ -4,10 +4,12 @@
 /// <reference path="about/about.controller.ts" />
 /// <reference path="repositoryProfile/repositoryProfile.controller.ts" />
 /// <reference path="userProfile/userProfile.controller.ts" />
+/// <reference path="controllers/user/user.controller.ts" />
+
 /// <reference path="auth/auth.controller.ts" />
 /// <reference path="../app/components/navbar/navbar.controller.ts" />
 
-module testApp {
+module webShoes {
   'use strict';
 
   angular.module('testApp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ui.router'])
@@ -17,6 +19,8 @@ module testApp {
     .controller('AuthController', AuthController)
     .controller('RepositoryProfileController', RepositoryProfileController)
     .controller('UserProfileController', UserProfileController)
+    .controller('UserController', UserController)
+
 
   .config(function ($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider, $locationProvider) {
     $stateProvider
@@ -25,6 +29,12 @@ module testApp {
         templateUrl: 'app/views/main.html',
         controller: 'MainController',
         controllerAs: 'main'
+      })
+       .state('signup', {
+        url: '/signup',
+        templateUrl: 'app/views/user/signup.html',
+        controller: 'UserController',
+        controllerAs: 'userCtrl'
       })
 
       .state('about', {
