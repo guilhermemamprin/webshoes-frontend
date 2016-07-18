@@ -13,13 +13,13 @@ module webShoes {
 
   export class UserController {
     public $http: any;
-    public $window: any;
+    public $window: ng.IWindowService;
     private $state: any;
     public rootUrl: string = 'http://webshoes-backend.herokuapp.com';
     public user: User;
     public userLogin: User;
 
-      constructor ($scope: any, $http: any, $window: any, $state:any) {
+      constructor ($scope: any, $http: any, $window: ng.IWindowService, $state: any) {
         this.$http = $http;
         this.$window = $window;
         this.$state = $state;
@@ -31,14 +31,14 @@ module webShoes {
             method  : 'POST',
             url     :  this.rootUrl + '/signup',
             data    :  this.user
-          }).then((response) => {
-            this.$window.localStorage.setItem('username', response.data.login);
+          }).then((response: any) => {
+
             alert('Usuário cadastrado!');
             this.userLogin = this.user;
             this.onSignIn();
 
-          }, (errorResponse) => {
-            alert('Erro: ' + errorResponse.message);
+          }, (errorResponse: any) => {
+            alert('Erro: ' + _.get(errorResponse, 'data.message'));
         });
     }
 
@@ -47,13 +47,22 @@ module webShoes {
             method  : 'POST',
             url     :  this.rootUrl + '/signin',
             data    :  {email: this.userLogin.email,  password: this.userLogin.password}
-          }).then((response) => {
+          }).then((response: any) => {
 
-            this.$window.localStorage.setItem('name', response.data.name);
-            this.$window.localStorage.setItem('token', response.data.token);
-            this.$state.go('home');
-        }, (errorResponse) => {
-            alert('Erro: ' + errorResponse.message);
+            let username : string = _.get(response, 'data.name', '');
+            let token : string = _.get(response, 'data.token', '');
+
+            if (username.length > 0 && token.length > 0) {
+              this.$window.localStorage.setItem('username' , username);
+              this.$window.localStorage.setItem('token', token);
+              this.$state.go('home');
+            } else {
+              // alert: Debugging only
+              alert('Erro no serviço!');
+            }
+
+        }, (errorResponse: any) => {
+            alert('Erro: ' + _.get(errorResponse, 'data.message'));
         });
     }
   }
