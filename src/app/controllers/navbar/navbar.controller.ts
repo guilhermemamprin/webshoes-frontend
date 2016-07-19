@@ -41,16 +41,16 @@ module webShoes {
       return this.$state.includes(viewLocation);
     }
 
-    search() : void {
-      this.$http({
-            method  : 'GET',
-            url     :  this.rootUrl + '/products',
-          }).then((response : any) => {
-            this.productList = <Array<Product>>_.get(response, 'data.products');
-        }, (errorResponse) => {
-          alert('Erro: ' + errorResponse.message);
-        });
-    }
+    // search() : void {
+    //   this.$http({
+    //         method  : 'GET',
+    //         url     :  this.rootUrl + '/products',
+    //       }).then((response : any) => {
+    //         // this.productList = <Array<Product>>_.get(response, 'data.products');
+    //     }, (errorResponse) => {
+    //       alert('Erro: ' + errorResponse.message);
+    //     });
+    // }
   }
 
 }
