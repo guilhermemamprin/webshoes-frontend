@@ -1,5 +1,4 @@
 module webShoes {
-  'use strict';
 
   class Product {
     id         : number;
@@ -10,10 +9,11 @@ module webShoes {
     manufactor : string;
     name       : string;
     price      : number;
+    quantity   : number;
     size       : string;
   }
 
-  export class MainController {
+  export class ProductController {
     public $http: any;
     public $window: any;
     public rootUrl: string = 'http://webshoes-backend.herokuapp.com';
@@ -22,10 +22,10 @@ module webShoes {
       constructor ($scope: any, $http: any, $window: any) {
         this.$http = $http;
         this.$window = $window;
-        this.getProducList();
+        this.onGetProducList();
       }
 
-      getProducList() : void {
+      onGetProducList() : void {
 
         this.$http({
             method  : 'GET',
@@ -37,5 +37,4 @@ module webShoes {
         });
     }
   }
-
 }

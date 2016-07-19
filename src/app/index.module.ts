@@ -6,6 +6,7 @@
 
 /// <reference path="auth/auth.controller.ts" />
 /// <reference path="controllers/navbar/navbar.controller.ts" />
+/// <reference path="controllers/products/products.controller.ts" />
 
 module webShoes {
   'use strict';
@@ -15,6 +16,7 @@ module webShoes {
     .controller('NavbarController', NavbarController)
     .controller('UserController', UserController)
     .controller('CartController', CartController)
+    .controller('ProductController', ProductController)
 
 
   .config(function ($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider, $locationProvider) {
@@ -37,6 +39,13 @@ module webShoes {
         controller: 'CartController',
         controllerAs: 'cart'
       })
+
+       .state('productList', {
+        url: '/productList',
+        templateUrl: 'app/views/product/productList.html',
+        controller: 'ProductController',
+        controllerAs: 'productCtrl'
+      });
 
       // .state('about', {
       //   url: '/about',

@@ -2,18 +2,37 @@ div(ng-include="'app/views/base.html'")
 div(id="all")
   div(id="content")
     .container
-      .jumbotron.text-center
-        h1 Webshoes
-        p.lead
-          br
-          |       Artigos esportivos
+      .col.md-12
+        #main-slider
+          .item
+            img.img-responsive(ng-src = 'http://static1.netshoes.net/resources/netshoes/banners/full/segmentado/generico/full2_gen_160716_ffffff_1366.jpg', alt='')
+          .item
+            img.img-responsive(ng-src = 'http://static1.netshoes.net/resources/netshoes/banners/full/segmentado/generico/full2_gen_160716_ffffff_1024.jpg', alt='')
+          .item
+            img.img-responsive(ng-src = 'http://static1.netshoes.net/resources/netshoes/banners/full/segmentado/generico/full2_gen_160716_ffffff_1366.jpg', alt='')
+    #hot
+      .box
+        .col.md-12
+          h2 Promoções da semana!!
+    .container
       .row
-        .col-md-6.col-md-offset-3
-          .form-group
-            .input-group
-              span.input-group-addon Buscar
-              input(type="text" class="form-control" id="search" ng-model="main.search" ng-change="main.change()")
-
+        .col-md-12
+          .product-slider
+            .item(ng-repeat="product in main.productList")
+              .flip-container
+                .flipper
+                  .front
+                    a(href='detail.html')
+                      img.img-responsive(ng-src = '{{product.img1}}', alt='')
+                  .back
+                    a(href='detail.html')
+                      img.img-responsive(ng-src = '{{product.img2}}', alt='')
+              a.invisible(href='detail.html')
+                img.img-responsive(ng-src = '{{product.img3}}', alt='')
+              .text
+                h3
+                  a(href='detail.html') {{product.name}}
+                p.price R$ {{product.price}}
       hr
       .footer
         p
