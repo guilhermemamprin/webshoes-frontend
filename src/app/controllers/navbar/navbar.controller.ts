@@ -6,6 +6,7 @@ module webShoes {
     public authSet        : boolean = false;
     public $window        : ng.IWindowService;
     public userName       : string;
+    public searchString   : string;
 
     private $state        : any;
     private $stateParams  : any;
@@ -38,6 +39,17 @@ module webShoes {
 
      isActive(viewLocation): boolean {
       return this.$state.includes(viewLocation);
+    }
+
+    search() : void {
+      this.$http({
+            method  : 'GET',
+            url     :  this.rootUrl + '/products',
+          }).then((response : any) => {
+            this.productList = <Array<Product>>_.get(response, 'data.products');
+        }, (errorResponse) => {
+          alert('Erro: ' + errorResponse.message);
+        });
     }
   }
 
