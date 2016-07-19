@@ -1,10 +1,16 @@
 module webShoes {
 
   class Product {
-    sku        : string;
-    image      : string;
-    text       : string;
+    id         : number;
+    img1       : string;
+    img2       : string;
+    img3       : string;
+    img4       : string;
+    manufactor : string;
+    name       : string;
     price      : number;
+    quantity   : number;
+    size       : string;
   }
 
   export class ProductController {

@@ -10,15 +10,15 @@ div(id="all")
                 .flipper
                   .front
                     a(href='detail.html')
-                      img.img-responsive(ng-src = '{{product.image}}', alt='')
+                      img.img-responsive(ng-src = '{{product.img1}}', alt='')
                   .back
                     a(href='detail.html')
-                      img.img-responsive(ng-src = '{{product.image}}', alt='')
+                      img.img-responsive(ng-src = '{{product.img2}}', alt='')
               a.invisible(href='detail.html')
-                img.img-responsive(ng-src = '{{product.image}}', alt='')
+                img.img-responsive(ng-src = '{{product.img3}}', alt='')
               .text
                 h3
-                  a(href='detail.html') {{product.text}}
+                  a(href='detail.html') {{product.name}}
                 p.price R$ {{product.price}}
 
 div(ng-include="'app/views/footer.html'")
