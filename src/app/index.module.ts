@@ -2,6 +2,7 @@
 
 /// <reference path="controllers/main.controller.ts" />
 /// <reference path="controllers/user/user.controller.ts" />
+/// <reference path="controllers/cart/cart.controller.ts" />
 
 /// <reference path="auth/auth.controller.ts" />
 /// <reference path="controllers/navbar/navbar.controller.ts" />
@@ -13,6 +14,7 @@ module webShoes {
     .controller('MainController', MainController)
     .controller('NavbarController', NavbarController)
     .controller('UserController', UserController)
+    .controller('CartController', CartController)
 
 
   .config(function ($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider, $locationProvider) {
@@ -23,11 +25,17 @@ module webShoes {
         controller: 'MainController',
         controllerAs: 'main'
       })
-       .state('signup', {
+      .state('signup', {
         url: '/signup',
         templateUrl: 'app/views/user/signup.html',
         controller: 'UserController',
         controllerAs: 'userCtrl'
+      })
+      .state('cart', {
+        url: '/cart',
+        templateUrl: 'app/views/cart/cart.html',
+        controller: 'CartController',
+        controllerAs: 'cart'
       })
 
       // .state('about', {
