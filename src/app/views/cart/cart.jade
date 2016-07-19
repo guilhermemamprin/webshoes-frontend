@@ -3,155 +3,142 @@ div(id="all")
   div(id="content")
     .container
 
-    .col-md-12
-          ul.breadcrumb
-            li
-              a(href='#') Home
-            li Shopping cart
-        #basket.col-md-9
-          .box
-            form(method='post', action='checkout1.html')
-              h1 Shopping cart
-              p.text-muted You currently have 3 item(s) in your cart.
-              .table-responsive
-                table.table
-                  thead
-                    tr
-                      th(colspan='2') Product
-                      th Quantity
-                      th Unit price
-                      th Discount
-                      th(colspan='2') Total
-                  tbody
-                    tr
-                      td
-                        a(href='#')
-                          img(src='img/detailsquare.jpg', alt='White Blouse Armani')
-                      td
-                        a(href='#') White Blouse Armani
-                      td
-                        input.form-control(type='number', value='2')
-                      td $123.00
-                      td $0.00
-                      td $246.00
-                      td
-                        a(href='#')
-                          i.fa.fa-trash-o
-                    tr
-                      td
-                        a(href='#')
-                          img(src='img/basketsquare.jpg', alt='Black Blouse Armani')
-                      td
-                        a(href='#') Black Blouse Armani
-                      td
-                        input.form-control(type='number', value='1')
-                      td $200.00
-                      td $0.00
-                      td $200.00
-                      td
-                        a(href='#')
-                          i.fa.fa-trash-o
-                  tfoot
-                    tr
-                      th(colspan='5') Total
-                      th(colspan='2') $446.00
-              // /.table-responsive
-              .box-footer
-                .pull-left
-                  a.btn.btn-default(href='category.html')
-                    i.fa.fa-chevron-left
-                    |  Continue shopping
-                .pull-right
-                  button.btn.btn-default
-                    i.fa.fa-refresh
-                    |  Update basket
-                  button.btn.btn-primary(type='submit')
-                    | Proceed to checkout 
-                    i.fa.fa-chevron-right
-          // /.box
-          .row.same-height-row
-            .col-md-3.col-sm-6
-              .box.same-height
-                h3 You may also like these products
-            .col-md-3.col-sm-6
-              .product.same-height
-                .flip-container
-                  .flipper
-                    .front
-                      a(href='detail.html')
-                        img.img-responsive(src='img/product2.jpg', alt='')
-                    .back
-                      a(href='detail.html')
-                        img.img-responsive(src='img/product2_2.jpg', alt='')
-                a.invisible(href='detail.html')
-                  img.img-responsive(src='img/product2.jpg', alt='')
-                .text
-                  h3 Fur coat
-                  p.price $143
-              // /.product
-            .col-md-3.col-sm-6
-              .product.same-height
-                .flip-container
-                  .flipper
-                    .front
-                      a(href='detail.html')
-                        img.img-responsive(src='img/product1.jpg', alt='')
-                    .back
-                      a(href='detail.html')
-                        img.img-responsive(src='img/product1_2.jpg', alt='')
-                a.invisible(href='detail.html')
-                  img.img-responsive(src='img/product1.jpg', alt='')
-                .text
-                  h3 Fur coat
-                  p.price $143
-              // /.product
-            .col-md-3.col-sm-6
-              .product.same-height
-                .flip-container
-                  .flipper
-                    .front
-                      a(href='detail.html')
-                        img.img-responsive(src='img/product3.jpg', alt='')
-                    .back
-                      a(href='detail.html')
-                        img.img-responsive(src='img/product3_2.jpg', alt='')
-                a.invisible(href='detail.html')
-                  img.img-responsive(src='img/product3.jpg', alt='')
-                .text
-                  h3 Fur coat
-                  p.price $143
-              // /.product
-        // /.col-md-9
-        .col-md-3
-          #order-summary.box
-            .box-header
-              h3 Order summary
-            p.text-muted
-              | Shipping and additional costs are calculated based on the values you have entered.
+      .col-md-12
+            ul.breadcrumb
+              li
+                a(href='#') Home
+              li Carrinho
+      #basket.col-md-9
+        .box
+          form(method='post', action='checkout1.html')
+            h1 Carrinho
+            p.text-muted Você tem {{cart.itemsInCart}} produtos no carrinho.
             .table-responsive
               table.table
+                thead
+                  tr
+                    th(colspan='2') Produto
+                    th Quantidade
+                    th Preço unitário
+                    th Desconto
+                    th(colspan='2') Total
                 tbody
+                  tr(ng-repeat="product in cart.productList")
+                    td
+                      a(href='#')
+                        img(ng-src='{{product.product.img1}}')
+                    td
+                      a(href='#') {{product.product.name}}
+                    td
+                      input.form-control(type='number', ng-value='{{product.product.quantity}}')
+                    td {{cart.formatMoney(product.product.price)}}
+                    td R$0.00
+                    td {{cart.formatMoney(product.product.price * product.product.quantity)}}
+                    td
+                      a(href='#')
+                        i.fa.fa-trash-o
+               
+                tfoot
                   tr
-                    td Order subtotal
-                    th $446.00
-                  tr
-                    td Shipping and handling
-                    th $10.00
-                  tr
-                    td Tax
-                    th $0.00
-                  tr.total
-                    td Total
-                    th $456.00
-          .box
-            .box-header
-              h4 Coupon code
-            p.text-muted If you have a coupon code, please enter it in the box below.
-            form
-              .input-group
-                input.form-control(type='text')
-                span.input-group-btn
-                  button.btn.btn-primary(type='button')
-                    i.fa.fa-gif
+                    th(colspan='5') Total
+                    th(colspan='2') {{cart.calculateTotal()}}
+            // /.table-responsive
+            .box-footer
+              .pull-left
+                a.btn.btn-default(href='category.html')
+                  i.fa.fa-chevron-left
+                  |  Continuar comprando
+              .pull-right
+                button.btn.btn-default
+                  i.fa.fa-refresh
+                  |  Atualizar Carrinho
+                button.btn.btn-primary(type='submit')
+                  | Finalizar compra 
+                  i.fa.fa-chevron-right
+
+        // TODO: SUGESTOES
+        //- .row.same-height-row
+        //-   .col-md-3.col-sm-6
+        //-     .box.same-height
+        //-       h3 You may also like these products
+        //-   .col-md-3.col-sm-6
+        //-     .product.same-height
+        //-       .flip-container
+        //-         .flipper
+        //-           .front
+        //-             a(href='detail.html')
+        //-               img.img-responsive(src='img/product2.jpg', alt='')
+        //-           .back
+        //-             a(href='detail.html')
+        //-               img.img-responsive(src='img/product2_2.jpg', alt='')
+        //-       a.invisible(href='detail.html')
+        //-         img.img-responsive(src='img/product2.jpg', alt='')
+        //-       .text
+        //-         h3 Fur coat
+        //-         p.price $143
+        //-   .col-md-3.col-sm-6
+        //-     .product.same-height
+        //-       .flip-container
+        //-         .flipper
+        //-           .front
+        //-             a(href='detail.html')
+        //-               img.img-responsive(src='img/product1.jpg', alt='')
+        //-           .back
+        //-             a(href='detail.html')
+        //-               img.img-responsive(src='img/product1_2.jpg', alt='')
+        //-       a.invisible(href='detail.html')
+        //-         img.img-responsive(src='img/product1.jpg', alt='')
+        //-       .text
+        //-         h3 Fur coat
+        //-         p.price $143
+        //-     // /.product
+        //-   .col-md-3.col-sm-6
+        //-     .product.same-height
+        //-       .flip-container
+        //-         .flipper
+        //-           .front
+        //-             a(href='detail.html')
+        //-               img.img-responsive(src='img/product3.jpg', alt='')
+        //-           .back
+        //-             a(href='detail.html')
+        //-               img.img-responsive(src='img/product3_2.jpg', alt='')
+        //-       a.invisible(href='detail.html')
+        //-         img.img-responsive(src='img/product3.jpg', alt='')
+        //-       .text
+        //-         h3 Fur coat
+        //-         p.price $143
+           
+      // /.col-md-9
+      .col-md-3
+        #order-summary.box
+          .box-header
+            h3 Resumo do Pedido
+          p.text-muted
+            | Frete e impostos são calculados de acordo com o seu endereço.
+          .table-responsive
+            table.table
+              tbody
+                tr
+                  td Subtotal da compra
+                  th {{cart.calculateTotal()}}
+                tr
+                  td Frete
+                  th R$0.00
+                tr
+                  td Impostos
+                  th $0.00
+                tr.total
+                  td Total
+                  th {{cart.calculateTotal()}}
+        .box
+          .box-header
+            h4 Coupon
+          p.text-muted Se você tem um cupom, insira o código.
+          form
+            .input-group
+              input.form-control(type='text')
+              span.input-group-btn
+                button.btn.btn-primary(type='button')
+                  i.fa.fa-gift
 
 div(ng-include="'app/views/footer.html'")
