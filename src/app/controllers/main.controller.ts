@@ -22,10 +22,10 @@ module webShoes {
       constructor ($scope: any, $http: any, $window: any) {
         this.$http = $http;
         this.$window = $window;
-        this.onGetProducList();
+        this.getProducList();
       }
 
-      onGetProducList() : void {
+      getProducList() : void {
 
         this.$http({
             method  : 'GET',
