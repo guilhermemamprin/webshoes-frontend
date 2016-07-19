@@ -1,0 +1,76 @@
+div(ng-include="'app/views/base.html'")
+div(id="all")
+  div(id="content")
+    .container
+      .col-md-12
+        ul.breadcrumb
+          li
+            a(href='#') Home
+          |                         
+          li Registrar-se / Entrar
+      |                 
+      .col-md-6
+        .box
+          h1 Nova Conta
+          |                         
+          p.lead Ainda não fez seu cadastro?
+          |                         
+          p
+            | Cadastre-se agora e tenha acesso a nossas ofertas e promoções imperdíveis!  
+                                  
+          hr
+          |                         
+          form
+            .form-group
+              label(for='name') Nome
+              |                                 
+              input#name.form-control(type='text' ng-model="userCtrl.user.name")
+            |                             
+            .form-group
+              label(for='email') Email
+              |                                 
+              input#email.form-control(ng-model='userCtrl.user.email' type='email')
+            |                             
+            .form-group
+              label(for='password') Senha                             
+              input#password.form-control(type='password' ng-model="userCtrl.user.password")
+             .form-group
+              label(for='phone') Telefone                            
+              input#phone.form-control(type='phone'  ng-model="userCtrl.user.phone")
+             .form-group
+              label(for='rg') RG                                 
+              input#rg.form-control(type='text'  ng-model="userCtrl.user.rg")
+             .form-group
+              label(for='cpf') CPF                               
+              input#cpf.form-control(type='text'  ng-model="userCtrl.user.cpf")                             
+            .text-center
+              button.btn.btn-primary(ng-click="userCtrl.onSignUp()")
+                i.fa.fa-user-md
+                |  Registrar
+
+      |                 
+      .col-md-6
+        .box
+          h1 Login
+          |                         
+          p.lead Já possui cadastro?
+                               
+          hr
+          |                         
+          form
+            .form-group
+              label(for='email') Email
+              |                                 
+              input#email.form-control(ng-model='userCtrl.userLogin.email' type='text')
+            |                             
+            .form-group
+              label(for='password') Senha
+              |                                 
+              input#password.form-control(ng-model= 'userCtrl.userLogin.password' type='password')
+            |                             
+            .text-center
+              button.btn.btn-primary(ng-click='userCtrl.onSignIn()')
+                i.fa.fa-sign-in
+                |  Entrar
+      
+div(ng-include="'app/views/footer.html'")

@@ -1,4 +1,4 @@
-module testApp {
+module webShoes {
   'use strict';
 
   class Thing {
@@ -32,8 +32,8 @@ module testApp {
     getAllUsers() {
         var _this = this;
         var data;
-        this.$http.get("https://api.github.com/users")
-            .then(function(response){_this.updateGrid(response)});
+        this.$http.get('https://api.github.com/users')
+            .then(function(response){_this.updateGrid(response);});
     }
 
     fetchUser() {
@@ -43,7 +43,7 @@ module testApp {
             this.getAllUsers();
             return;
         }
-        this.$http.get("https://api.github.com/search/users?q=" + this.search)
+        this.$http.get('https://api.github.com/search/users?q=' + this.search)
             .then(function(response) {
                 awesomeThings = response.data.items;
                 _this.awesomeThings = new Array<Thing>();
@@ -55,7 +55,7 @@ module testApp {
         });
     }
 
-    change(){
+    change() {
       if (this.pendingTask) {
         clearTimeout(this.pendingTask);
       }
