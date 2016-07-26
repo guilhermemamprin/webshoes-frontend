@@ -15,15 +15,15 @@ module webShoes {
 
   export class ProductDetailController {
     public $http: any;
-    public $window: any;
+    public $state: any;
     public rootUrl: string = 'http://webshoes-backend.herokuapp.com';
     public product : Product;
 
     private $stateParams: any;
 
-    constructor ($stateParams: any, $http: any, $window: any) {
+    constructor ($stateParams: any, $http: any, $state: any) {
       this.$http = $http;
-      this.$window = $window;
+      this.$state = $state;
       this.$stateParams = $stateParams;
       this.getProductDetail(_.get(this.$stateParams, 'productId', 0));
     }
@@ -37,7 +37,10 @@ module webShoes {
           this.product = <Product>_.get(response, 'data.product');
         }, (errorResponse) => {
           alert('Erro: ' + errorResponse.message);
+          this.$state.go('home');
         });
+      } else {
+        this.$state.go('home');
       }
     }
 
