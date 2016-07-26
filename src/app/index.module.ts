@@ -41,11 +41,12 @@ module webShoes {
       })
 
        .state('productList', {
-        url: '/productList',
+        url: '/productList?search',
         templateUrl: 'app/views/product/productList.html',
         controller: 'ProductController',
         controllerAs: 'productCtrl'
       });
+
 
       // .state('about', {
       //   url: '/about',

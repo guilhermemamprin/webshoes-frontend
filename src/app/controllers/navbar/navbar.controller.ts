@@ -6,18 +6,21 @@ module webShoes {
     public authSet        : boolean = false;
     public $window        : ng.IWindowService;
     public userName       : string;
+    public searchString   : string;
+    public $http: any;
 
     private $state        : any;
     private $stateParams  : any;
 
     /* @ngInject */
-    constructor ($state, $scope, $window: ng.IWindowService, $stateParams) {
+    constructor ($state, $scope, $http: any, $window: ng.IWindowService, $stateParams) {
       
       this.$state = $state;
       this.$window = $window;
       this.$stateParams = $stateParams;
+      this.$http = $http;
 
-      let username = $window.localStorage.getItem('username'); 
+      let username = $window.localStorage.getItem('username');
       let token = $window.localStorage.getItem('token');
        if (username !== null && token !== null) {
          this.userName = username;
@@ -38,6 +41,10 @@ module webShoes {
 
      isActive(viewLocation): boolean {
       return this.$state.includes(viewLocation);
+    }
+
+    search() : void {
+      this.$state.go('productList', {search: this.searchString});
     }
   }
 

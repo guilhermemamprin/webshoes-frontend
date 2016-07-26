@@ -1669,3 +1669,9 @@ address {
   color: #fff;
   text-decoration: none;
 }
+
+#productNotFound {
+  color:#ffffff;
+  background: #5A2D82;
+  text-align: left;
+}
