@@ -1,0 +1,295 @@
+div(ng-include="'app/views/base.html'")
+div(id="all")
+  div(id="content")
+    .container
+        .col-md-12
+          ul.breadcrumb
+            li
+              a(ui-sref='home') Home
+            li {{productCtrl.product.name}}
+        .col-md-3
+          //
+            *** MENUS AND FILTERS ***
+            _________________________________________________________
+          .panel.panel-default.sidebar-menu
+            .panel-heading
+              h3.panel-title Categories
+            .panel-body
+              ul.nav.nav-pills.nav-stacked.category-menu
+                li
+                  a(href='category.html')
+                    | Men 
+                    span.badge.pull-right 42
+                  ul
+                    li
+                      a(href='category.html') T-shirts
+                    li
+                      a(href='category.html') Shirts
+                    li
+                      a(href='category.html') Pants
+                    li
+                      a(href='category.html') Accessories
+                li.active
+                  a(href='category.html')
+                    | Ladies  
+                    span.badge.pull-right 123
+                  ul
+                    li
+                      a(href='category.html') T-shirts
+                    li
+                      a(href='category.html') Skirts
+                    li
+                      a(href='category.html') Pants
+                    li
+                      a(href='category.html') Accessories
+                li
+                  a(href='category.html')
+                    | Kids  
+                    span.badge.pull-right 11
+                  ul
+                    li
+                      a(href='category.html') T-shirts
+                    li
+                      a(href='category.html') Skirts
+                    li
+                      a(href='category.html') Pants
+                    li
+                      a(href='category.html') Accessories
+          .panel.panel-default.sidebar-menu
+            .panel-heading
+              h3.panel-title
+                | Brands 
+                a.btn.btn-xs.btn-danger.pull-right(href='#')
+                  i.fa.fa-times-circle
+                  |  Clear
+            .panel-body
+              form
+                .form-group
+                  .checkbox
+                    label
+                      input(type='checkbox')
+                      | Armani (10)
+                  .checkbox
+                    label
+                      input(type='checkbox')
+                      | Versace (12)
+                  .checkbox
+                    label
+                      input(type='checkbox')
+                      | Carlo Bruni (15)
+                  .checkbox
+                    label
+                      input(type='checkbox')
+                      | Jack Honey (14)
+                button.btn.btn-default.btn-sm.btn-primary
+                  i.fa.fa-pencil
+                  |  Apply
+          .panel.panel-default.sidebar-menu
+            .panel-heading
+              h3.panel-title
+                | Colours 
+                a.btn.btn-xs.btn-danger.pull-right(href='#')
+                  i.fa.fa-times-circle
+                  |  Clear
+            .panel-body
+              form
+                .form-group
+                  .checkbox
+                    label
+                      input(type='checkbox')
+                      span.colour.white
+                      |  White (14)
+                  .checkbox
+                    label
+                      input(type='checkbox')
+                      span.colour.blue
+                      |  Blue (10)
+                  .checkbox
+                    label
+                      input(type='checkbox')
+                      span.colour.green
+                      |  Green (20)
+                  .checkbox
+                    label
+                      input(type='checkbox')
+                      span.colour.yellow
+                      |  Yellow (13)
+                  .checkbox
+                    label
+                      input(type='checkbox')
+                      span.colour.red
+                      |  Red (10)
+                button.btn.btn-default.btn-sm.btn-primary
+                  i.fa.fa-pencil
+                  |  Apply
+          // *** MENUS AND FILTERS END ***
+          .banner
+            a(href='#')
+              img.img-responsive(src='img/banner.jpg', alt='sales 2014')
+        .col-md-9
+          #productMain.row
+            .col-sm-6
+              #mainImage
+                img.img-responsive(ng-src='{{productCtrl.product.img1}}', alt='')
+              .ribbon.sale
+                .theribbon SALE
+                .ribbon-background
+              // /.ribbon
+              .ribbon.new
+                .theribbon NEW
+                .ribbon-background
+              // /.ribbon
+            .col-sm-6
+              .box
+                h1.text-center {{productCtrl.product.name}}
+                p.goToDescription
+                  a.scroll-to(href='#details') Ver detalhes, tamanhos e outras informações.
+                p.price {{productCtrl.formatMoney(productCtrl.product.price)}}
+                p.text-center.buttons
+                  a.btn.btn-primary(href='basket.html')
+                    i.fa.fa-shopping-cart
+                    |  Adicionar ao Carrinho
+                  //- a.btn.btn-default(href='basket.html')
+                  //-   i.fa.fa-heart
+                  //-   |  Adicionar à lista de desejos
+              //- #thumbs.row
+              //-   .col-xs-4
+              //-     a.thumb(href='img/detailbig1.jpg')
+              //-       img.img-responsive(ng-src='{{productCtrl.product.img1}}', alt='')
+                //- .col-xs-4
+                //-   a.thumb(href='img/detailbig2.jpg')
+                //-     img.img-responsive(src='img/detailsquare2.jpg', alt='')
+                //- .col-xs-4
+                //-   a.thumb(href='img/detailbig3.jpg')
+                //-     img.img-responsive(src='img/detailsquare3.jpg', alt='')
+          #details.box
+            p
+            h4 Descrição
+            p
+              | {{productCtrl.product.description}}
+            h4 Tamanho
+            ul
+              li {{productCtrl.product.size}}
+            
+            blockquote
+              p
+                em
+                  | {{productCtrl.product.description}}
+            hr
+            .social
+              h4 Compartilhe
+              p
+                a.external.facebook(href='#', data-animate-hover='pulse')
+                  i.fa.fa-facebook
+                a.external.gplus(href='#', data-animate-hover='pulse')
+                  i.fa.fa-google-plus
+                a.external.twitter(href='#', data-animate-hover='pulse')
+                  i.fa.fa-twitter
+                a.email(href='#', data-animate-hover='pulse')
+                  i.fa.fa-envelope
+          .row.same-height-row
+            .col-md-3.col-sm-6
+              .box.same-height
+                h3 You may also like these products
+            .col-md-3.col-sm-6
+              .product.same-height
+                .flip-container
+                  .flipper
+                    .front
+                      a(href='detail.html')
+                        img.img-responsive(src='img/product2.jpg', alt='')
+                    .back
+                      a(href='detail.html')
+                        img.img-responsive(src='img/product2_2.jpg', alt='')
+                a.invisible(href='detail.html')
+                  img.img-responsive(src='img/product2.jpg', alt='')
+                .text
+                  h3 Fur coat
+                  p.price $143
+              // /.product
+            .col-md-3.col-sm-6
+              .product.same-height
+                .flip-container
+                  .flipper
+                    .front
+                      a(href='detail.html')
+                        img.img-responsive(src='img/product1.jpg', alt='')
+                    .back
+                      a(href='detail.html')
+                        img.img-responsive(src='img/product1_2.jpg', alt='')
+                a.invisible(href='detail.html')
+                  img.img-responsive(src='img/product1.jpg', alt='')
+                .text
+                  h3 Fur coat
+                  p.price $143
+              // /.product
+            .col-md-3.col-sm-6
+              .product.same-height
+                .flip-container
+                  .flipper
+                    .front
+                      a(href='detail.html')
+                        img.img-responsive(src='img/product3.jpg', alt='')
+                    .back
+                      a(href='detail.html')
+                        img.img-responsive(src='img/product3_2.jpg', alt='')
+                a.invisible(href='detail.html')
+                  img.img-responsive(src='img/product3.jpg', alt='')
+                .text
+                  h3 Fur coat
+                  p.price $143
+              // /.product
+          .row.same-height-row
+            .col-md-3.col-sm-6
+              .box.same-height
+                h3 Products viewed recently
+            .col-md-3.col-sm-6
+              .product.same-height
+                .flip-container
+                  .flipper
+                    .front
+                      a(href='detail.html')
+                        img.img-responsive(src='img/product2.jpg', alt='')
+                    .back
+                      a(href='detail.html')
+                        img.img-responsive(src='img/product2_2.jpg', alt='')
+                a.invisible(href='detail.html')
+                  img.img-responsive(src='img/product2.jpg', alt='')
+                .text
+                  h3 Fur coat
+                  p.price $143
+              // /.product
+            .col-md-3.col-sm-6
+              .product.same-height
+                .flip-container
+                  .flipper
+                    .front
+                      a(href='detail.html')
+                        img.img-responsive(src='img/product1.jpg', alt='')
+                    .back
+                      a(href='detail.html')
+                        img.img-responsive(src='img/product1_2.jpg', alt='')
+                a.invisible(href='detail.html')
+                  img.img-responsive(src='img/product1.jpg', alt='')
+                .text
+                  h3 Fur coat
+                  p.price $143
+              // /.product
+            .col-md-3.col-sm-6
+              .product.same-height
+                .flip-container
+                  .flipper
+                    .front
+                      a(href='detail.html')
+                        img.img-responsive(src='img/product3.jpg', alt='')
+                    .back
+                      a(href='detail.html')
+                        img.img-responsive(src='img/product3_2.jpg', alt='')
+                a.invisible(href='detail.html')
+                  img.img-responsive(src='img/product3.jpg', alt='')
+                .text
+                  h3 Fur coat
+                  p.price $143
+
+
+div(ng-include="'app/views/footer.html'")
