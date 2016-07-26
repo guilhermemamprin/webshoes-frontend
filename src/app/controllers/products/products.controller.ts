@@ -18,20 +18,30 @@ module webShoes {
     public $window: any;
     public rootUrl: string = 'http://webshoes-backend.herokuapp.com';
     public productList : Array<Product>;
+    public hasProducts : boolean
 
-      constructor ($scope: any, $http: any, $window: any) {
-        this.$http = $http;
-        this.$window = $window;
-        this.onGetProducList();
-      }
+    private $stateParams: any;
 
-      onGetProducList() : void {
+    constructor ($scope: any, $http: any, $window: any, $stateParams) {
+      this.$http = $http;
+      this.$window = $window;
+      this.$stateParams = $stateParams;
+      this.hasProducts = false;
+      this.getProductList(_.get(this.$stateParams, 'search', ""));
+    }
+
+    getProductList(searchString: string) : void {
 
         this.$http({
             method  : 'GET',
-            url     :  this.rootUrl + '/products',
+            url     :  this.rootUrl + '/products?q=' + searchString,
           }).then((response : any) => {
-            this.productList = <Array<Product>>_.get(response, 'data.products');
+              this.productList = <Array<Product>>_.get(response, 'data.products');
+             if(this.productList.length > 0) {
+                 this.hasProducts = true;
+             } else {
+                 this.hasProducts = false;
+             }
         }, (errorResponse) => {
           alert('Erro: ' + errorResponse.message);
         });

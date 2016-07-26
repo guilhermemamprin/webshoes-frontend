@@ -217,10 +217,10 @@
 
                 <form class="navbar-form" role="search">
                     <div class="input-group">
-                        <input ng-value='navbar.searchString' type="text" class="form-control" placeholder="Buscar">
+                        <input ng-model='navbar.searchString' type="text" class="form-control" placeholder="Buscar">
                         <span class="input-group-btn">
 
-			<button ng-click='navbar.search()' class="btn btn-primary"><i class="fa fa-search"></i></button>
+			<button ng-click='navbar.search()' class="btn btn-primary" ui-sref="productList"><i class="fa fa-search"></i></button>
 
 		    </span>
                     </div>
