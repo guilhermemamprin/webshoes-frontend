@@ -63,7 +63,7 @@ module webShoes {
       })
 
         .state('productDetail', {
-        url: '/product?productId',
+        url: '/product/:productId',
         templateUrl: 'app/views/product/productDetail.html',
         controller: 'ProductDetailController',
         controllerAs: 'productCtrl'

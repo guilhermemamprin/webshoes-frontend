@@ -3,7 +3,7 @@ div(id="all")
   div(id="content")
     .container(ng-if='productCtrl.hasProducts == true')
         .col-md-3(ng-repeat="product in productCtrl.productList")
-          .item
+          .item(ui-sref="productDetail({productId: product.id})")
             .flip-container
               .flipper
                 .front

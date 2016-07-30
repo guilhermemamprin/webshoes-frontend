@@ -146,7 +146,7 @@ div(id="all")
                   a.scroll-to(href='#details') Ver detalhes, tamanhos e outras informações.
                 p.price {{productCtrl.formatMoney(productCtrl.product.price)}}
                 p.text-center.buttons
-                  a.btn.btn-primary(href='basket.html' ng-click='productCtrl.addToCart()')
+                  a.btn.btn-primary(href='basket.html' ui-sref="addToCart({productId: productCtrl.product.id, quantity: 1})")
                     i.fa.fa-shopping-cart
                     |  Adicionar ao Carrinho
                   //- a.btn.btn-default(href='basket.html')
