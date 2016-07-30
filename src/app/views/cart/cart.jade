@@ -30,12 +30,12 @@ div(id="all")
                     td
                       a(href='#') {{product.name}}
                     td
-                      input.form-control(type='number', ng-value='{{product.quantity}}')
+                      input.form-control(type='number', ng-model='product.quantity' ng-change='cart.changeProductQuantity(product)')
                     td {{cart.formatMoney(product.price)}}
                     td R$0.00
                     td {{cart.formatMoney(product.price * product.quantity)}}
                     td
-                      a(href='#')
+                      a(ui-sref="removeFromCart({productId: product.id})")
                         i.fa.fa-trash-o
                
                 tfoot

@@ -42,7 +42,14 @@ module webShoes {
         controllerAs: 'cart'
       })
       .state('addToCart', {
-        url: '/cart/:productId/:quantity',
+        url: '/cart/add/:productId/:quantity',
+        templateUrl: 'app/views/cart/cart.html',
+        controller: 'CartController',
+        controllerAs: 'cart'
+      })
+
+      .state('removeFromCart', {
+        url: '/cart/remove/:productId',
         templateUrl: 'app/views/cart/cart.html',
         controller: 'CartController',
         controllerAs: 'cart'

@@ -1,5 +1,5 @@
 module webShoes {
-
+  'use script';
   class Product {
     id         : number;
     img1       : string;
@@ -25,7 +25,7 @@ module webShoes {
   export class CartController {
     public $http        : any;
     public $window      : ng.IWindowService;
-    public productList  : Array<Product>;
+    public productList  : Array<Product> = [];
     public itemsInCart  :  number;
     public rootUrl      : string = 'http://webshoes-backend.herokuapp.com';
 
@@ -40,29 +40,30 @@ module webShoes {
 
       this.getProducts();
 
-      if(_.get($stateParams, 'productId', false) && _.get($stateParams, 'quantity', false)) {
+      if(_.get($stateParams, 'productId', false)) {
         this.updateCart();
       }      
     }
 
     getProducts() : void {
     
-      // if (this.isLoggedIn()) {
-      //   this.$http({
-      //       method  : 'GET',
-      //       url     :  this.rootUrl + '/cart',
-      //       headers :  {'x-authentication': userToken}
-      //     }).then((response: any) => {
-      //       this.productList = response.data.items;
-      //       this.itemsInCart = this.productList.length;
+      let userToken =  this.$window.localStorage.getItem('token');
+      if (this.isLoggedIn()) {
+        this.$http({
+            method  : 'GET',
+            url     :  this.rootUrl + '/cart',
+            headers :  {'x-authentication': userToken}
+          }).then((response: any) => {
+            this.productList = response.data.products;
+            this.itemsInCart = _.get(this.productList, 'length', 0);
 
-      //     }, (errorResponse: any) => {
-      //       alert('Erro: ' + _.get(errorResponse, 'data.message'));
-      //       this.loadLocalCart();
-      // //   });
-      // } else {
+          }, (errorResponse: any) => {
+            alert('Erro: ' + _.get(errorResponse, 'data.message'));
+            this.loadLocalCart();
+        });
+      } else {
         this.loadLocalCart();
-      // }
+      }
     }
 
     formatMoney(x:  number) : string {
@@ -83,7 +84,7 @@ module webShoes {
       let cart: Cart = new Cart();
       cart.productList = [];
       if(cartString !== null && cartString.length > 0) {
-        cart = JSON.parse(cartString);
+        cart.productList = JSON.parse(cartString);
         this.productList = cart.productList;
         this.itemsInCart = cart.productList.length;
       }
@@ -102,8 +103,38 @@ module webShoes {
       }
     }
 
-    removeProductFromCart(cartEntry: CartEntry) : void {
+    changeProductQuantity(product: Product): void {
+      this.addProductToCart(<CartEntry>{productId: product.id, quantity: product.quantity});
+    }
 
+    removeProductFromCart(cartEntry: CartEntry) : void {
+      let userToken =  this.$window.localStorage.getItem('token');
+      if (this.isLoggedIn()) {
+        this.$http({
+            method  : 'DELETE',
+            url     :  this.rootUrl + '/cart',
+            headers :  {'x-authentication': userToken},
+             data    :  {productId: Number(cartEntry.productId)}
+          }).then((response: any) => {
+            this.removeProductFromCartLocal(cartEntry);
+
+          }, (errorResponse: any) => {
+            alert('Erro: ' + _.get(errorResponse, 'data.message'));
+        });
+      } else {
+        this.removeProductFromCartLocal(cartEntry);
+      }
+    }
+
+    removeProductFromCartLocal(cartEntry: CartEntry): void {
+      for(var i = 0; i < this.productList.length; i++) {
+        if(this.productList[i].id == cartEntry.productId) {
+          this.productList.splice(i,1);
+          this.itemsInCart = this.productList.length;
+        }
+      }
+      this.$window.localStorage.setItem('cart', JSON.stringify(this.productList));
+      this.$state.go('cart');
     }
 
     addProductToCart(cartEntry: CartEntry) : void {
@@ -112,8 +143,8 @@ module webShoes {
         this.$http({
             method  : 'POST',
             url     :  this.rootUrl + '/cart',
-            headers :  {'token': userToken},
-            data    :  cartEntry
+            headers :  {'x-authentication': userToken},
+            data    :  {productId: Number(cartEntry.productId), quantity: Number(cartEntry.quantity)}
           }).then((response: any) => {
             this.addProductToCartLocal(cartEntry);
 
@@ -126,25 +157,19 @@ module webShoes {
     }
 
     addProductToCartLocal(cartEntry: CartEntry) {
-      let cartString = this.$window.localStorage.getItem('cart');
-      let cart: Cart = new Cart();
-      cart.productList = [];
-      if(cartString !== null && cartString.length > 0) {
-        cart = JSON.parse(cartString); 
-      }
-      let update: boolean = _.some(cart.productList, (product: Product) => {
+   
+      let update: boolean = _.some(this.productList, (product: Product) => {
         return product.id == cartEntry.productId;
       });
        if (update) {
-        for(var i = 0; i < cart.productList.length; i++) {
-          if(cart.productList[i].id == cartEntry.productId) {
+        for(var i = 0; i < this.productList.length; i++) {
+          if(this.productList[i].id == cartEntry.productId) {
 
-            cart.productList[i].quantity = Number(cart.productList[i].quantity) + Number(cartEntry.quantity);
+            this.productList[i].quantity = Number(this.productList[i].quantity) + Number(cartEntry.quantity);
           }
         }
-        this.productList = cart.productList;
-        this.itemsInCart = this.productList.length;
-        this.$window.localStorage.setItem('cart', JSON.stringify(cart));
+        this.$window.localStorage.setItem('cart', JSON.stringify(this.productList));
+        this.$state.go('cart');
        } else {
           this.$http({
             method  : 'GET',
@@ -152,10 +177,10 @@ module webShoes {
           }).then((response: any) => {
             let product: Product = <Product>_.get(response, 'data.product');
             product.quantity = cartEntry.quantity;
-            cart.productList.push(product);
-            this.productList = cart.productList;
-            this.itemsInCart = cart.productList.length;
-            this.$window.localStorage.setItem('cart', JSON.stringify(cart));
+            this.productList.push(product);
+            this.itemsInCart = this.productList.length;
+            this.$window.localStorage.setItem('cart', JSON.stringify(this.productList));
+            this.$state.go('cart');
           }, (errorResponse: any) => {
             alert('Erro: ' + _.get(errorResponse, 'data.message'));
         }); 
