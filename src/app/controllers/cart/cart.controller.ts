@@ -2,13 +2,16 @@ module webShoes {
   'use strict';
 
   class Product {
-    id            :   number;
-    name          :   string;
-    quantity      :   number;
-    size          :   string;
-    price         :   string;
-    manufacturer  :   string;
-    img1          :   string;
+    id         : number;
+    img1       : string;
+    img2       : string;
+    img3       : string;
+    img4       : string;
+    manufactor : string;
+    name       : string;
+    price      : number;
+    quantity   : number;
+    size       : string;
 
   }
 
@@ -34,6 +37,9 @@ module webShoes {
         this.$http({
             method  : 'GET',
             url     :  this.rootUrl + '/cart',
+            headers : {
+              'x-authentication': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcGYiOiI0MTg1MDQ3MjE1NyIsInR5cGUiOiJjbGllbnQiLCJpYXQiOjE0Njk3MjkyMzZ9.9CP7k_FWC_kehx-eQhq5MkVoCYGwrqmmkD3A2b8yWso' //this.$window.localStorage.getItem('token')
+            }
           }).then((response: any) => {
             this.productList = response.data.items;
             this.itemsInCart = this.productList.length;
