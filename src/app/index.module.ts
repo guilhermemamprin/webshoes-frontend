@@ -41,6 +41,19 @@ module webShoes {
         controller: 'CartController',
         controllerAs: 'cart'
       })
+      .state('addToCart', {
+        url: '/cart/add/:productId/:quantity',
+        templateUrl: 'app/views/cart/cart.html',
+        controller: 'CartController',
+        controllerAs: 'cart'
+      })
+
+      .state('removeFromCart', {
+        url: '/cart/remove/:productId',
+        templateUrl: 'app/views/cart/cart.html',
+        controller: 'CartController',
+        controllerAs: 'cart'
+      })
 
        .state('productList', {
         url: '/productList?search',
@@ -50,7 +63,7 @@ module webShoes {
       })
 
         .state('productDetail', {
-        url: '/product?productId',
+        url: '/product/:productId',
         templateUrl: 'app/views/product/productDetail.html',
         controller: 'ProductDetailController',
         controllerAs: 'productCtrl'
