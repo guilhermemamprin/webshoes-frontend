@@ -1,0 +1,69 @@
+div(ng-include="'app/views/base.html'")
+div(id="all")
+  div(id="content")
+    .container(ng-if='myAccountCtrl.hasAddrs == true')
+      .col-md-3
+        .panel.panel-default.sidebar-menu
+          .panel-heading
+            h3.panel-title Area do cliente
+          .panel-body
+            ul.nav.nav-pills.nav-stacked
+              li
+                a(ui-sref="myAccount")
+                  i.fa.fa-list
+                  |  Minha conta
+              li.active
+                a(ui-sref="myAddress")
+                  i.fa.fa-heart
+                  |  Meus endereços
+              li
+                a(href='index.html')
+                  i.fa.fa-sign-out
+                  |  Logout
+
+      .col-md-4
+        h2 DADOS DO COMPRADOR
+        .box
+            b Endereço: 
+            | {{myAccountCtrl.clientAddrss.address}}
+            br
+            br
+            b Número: 
+            | {{myAccountCtrl.clientAddrss.number}}
+            br
+            br
+            b Estado: 
+            | {{myAccountCtrl.clientAddrss.state}}
+            br
+            br
+            b Cidade: 
+            | {{myAccountCtrl.clientAddrss.city}}
+            br
+      .col-md-4
+        h2 ENDEREÇO DE ENTREGA
+        .box
+          b Endereço: 
+            | {{myAccountCtrl.updatedAddrss.address}}
+            br
+            br
+            b Número: 
+            | {{myAccountCtrl.updatedAddrss.number}}
+            br
+            br
+            b Estado: 
+            | {{myAccountCtrl.updatedAddrss.state}}
+            br
+            br
+            b Cidade: 
+            | {{myAccountCtrl.updatedAddrss.city}}
+            br
+    .container(ng-if='myAccountCtrl.hasAddrs == false')
+      .col-md-12
+          div
+            h2 OPS! Não localizamos nenhum endereço cadastrado
+            .col-sm-12.text-left
+              button.btn.btn-primary(type='submit')
+                i.fa.fa-save
+                |  Adicionar novo endereço
+
+div(ng-include="'app/views/footer.html'")

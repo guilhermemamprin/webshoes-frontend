@@ -1013,7 +1013,8 @@ h1 {
 }
 .nav > li > a:hover,
 .nav > li > a:focus {
-  background-color: #eeeeee;
+  background-color: #5A2D82;
+  color: #ffffff;
 }
 .nav > li.disabled > a {
   color: #999999;
@@ -1262,8 +1263,8 @@ h1 {
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-  color: #333333;
-  background-color: transparent;
+  color: #ffffff;
+  background-color: #5A2D82;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
