@@ -149,6 +149,7 @@ module webShoes {
             data    :  {productId: Number(cartEntry.productId), quantity: Number(cartEntry.quantity)}
           }).then((response: any) => {
             this.callingService = false;
+            this.getProducts();
             this.addProductToCartLocal(cartEntry);
 
           }, (errorResponse: any) => {

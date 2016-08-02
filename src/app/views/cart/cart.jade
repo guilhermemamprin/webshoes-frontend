@@ -10,7 +10,7 @@ div(id="all")
               li Carrinho
       #basket.col-md-9
         .box
-          form(method='post', action='checkout1.html')
+          form
             h1 Carrinho
             p.text-muted Você tem {{cart.itemsInCart}} produtos no carrinho.
             .table-responsive
@@ -22,6 +22,7 @@ div(id="all")
                     th Preço unitário
                     th Desconto
                     th(colspan='2') Total
+                    th
                 tbody
                   tr(ng-repeat="product in cart.productList")
                     td
@@ -30,10 +31,12 @@ div(id="all")
                     td
                       a(href='#') {{product.name}}
                     td
-                      input.form-control(type='number', ng-model='product.quantity' ng-change='cart.changeProductQuantity(product)')
+                      input.form-control(type='number', ng-model='product.quantity' )
                     td {{cart.formatMoney(product.price)}}
                     td R$0.00
                     td {{cart.formatMoney(product.price * product.quantity)}}
+                    td
+                      a.btn.btn-primary(ng-click='cart.changeProductQuantity(product)') Salvar
                     td
                       a(ui-sref="removeFromCart({productId: product.id})")
                         i.fa.fa-trash-o
