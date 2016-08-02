@@ -31,6 +31,7 @@ module webShoes {
 
     private $state      : any;
     private $stateParams: any;
+    private callingService: boolean = false;
 
     constructor ($stateParams: any, $http: any, $window: ng.IWindowService, $state: any) {
       this.$http = $http;
@@ -139,16 +140,19 @@ module webShoes {
 
     addProductToCart(cartEntry: CartEntry) : void {
       let userToken =  this.$window.localStorage.getItem('token');
-      if (this.isLoggedIn()) {
+      if (this.isLoggedIn() && !this.callingService) {
+        this.callingService = true;
         this.$http({
             method  : 'POST',
             url     :  this.rootUrl + '/cart',
             headers :  {'x-authentication': userToken},
             data    :  {productId: Number(cartEntry.productId), quantity: Number(cartEntry.quantity)}
           }).then((response: any) => {
+            this.callingService = false;
             this.addProductToCartLocal(cartEntry);
 
           }, (errorResponse: any) => {
+            this.callingService = false;
             alert('Erro: ' + _.get(errorResponse, 'data.message'));
         });
       } else {
