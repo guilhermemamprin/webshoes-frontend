@@ -181,23 +181,22 @@ module webShoes {
 
     doCheckout() : void {
       let userToken =  this.$window.localStorage.getItem('token');
+
       this.$http({
           method  : 'POST',
           url     :  this.rootUrl + '/checkout',
-          headers :  {'x-authentication': userToken},
-          data    :  
-          {
-            productList  : this.productList,
-            address      : this.chosenAddress,
-            card         : this.chosenCard,
-            freight      : this.freight
-          }
-        }).then((response: any) => {
+          data    : {
+            address : _.get(this.chosenAddress, 'id'),
+            card    : _.get(this.chosenCard, 'number'),
+            freight : this.freight,
+          },
+          headers : { 'x-authentication' : userToken }
+        }).then(() => {
           alert("Pedido finalizado com sucesso!");
           this.$state.go("home");
         }, (errorResponse: any) => {
           alert('Erro: ' + _.get(errorResponse, 'data.message'));
-      });
+        });
     }
 
     private isLoggedIn(): boolean {

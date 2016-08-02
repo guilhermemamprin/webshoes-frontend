@@ -9,7 +9,7 @@ div(ng-include="'app/views/base.html'")
           li Checkout - Address
       #checkout.col-md-9
         .box
-          form(method='post', action='checkout2.html')
+          form
             h1 Checkout
             ul.nav.nav-pills.nav-justified
               li(ng-class="checkoutCtrl.$state.$current.name === 'checkout.stepOne' ? 'active' : 'disabled'")
