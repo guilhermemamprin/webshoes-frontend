@@ -1,0 +1,13 @@
+.row
+  .col-md-12
+    h3 Escolha seu Endereço:
+  .col-md-3(ng-repeat="address in checkoutCtrl.addressList")
+    .panel.panel-default.sidebar-menu
+      .panel-heading
+        h3.panel-title {{address.address}}, {{address.number}}, {{address.city}}, {{address.state}}
+      .panel-body
+        ul.nav.nav-pills.nav-stacked
+          li
+            CEP: {{address.cep}}
+          li
+            a(ng-click="checkoutCtrl.chooseAddress(address)") Escolher

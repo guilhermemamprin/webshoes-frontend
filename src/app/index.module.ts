@@ -8,6 +8,7 @@
 /// <reference path="controllers/navbar/navbar.controller.ts" />
 /// <reference path="controllers/products/products.controller.ts" />
 /// <reference path="controllers/products/productDetail.controller.ts" />
+/// <reference path="controllers/checkout/checkout.controller.ts" />
 
 module webShoes {
   'use strict';
@@ -19,6 +20,8 @@ module webShoes {
     .controller('CartController', CartController)
     .controller('ProductController', ProductController)
     .controller('ProductDetailController', ProductDetailController)
+    .controller('CheckoutController', CheckoutController)
+
 
 
   .config(function ($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider, $locationProvider) {
@@ -67,7 +70,27 @@ module webShoes {
         templateUrl: 'app/views/product/productDetail.html',
         controller: 'ProductDetailController',
         controllerAs: 'productCtrl'
-      });
+      })
+
+       .state('checkout', {
+        url: '/checkout',
+        templateUrl: 'app/views/checkout/checkoutBase.html',
+        controller: 'CheckoutController',
+        controllerAs: 'checkoutCtrl'
+      })
+
+      .state('checkout.stepOne', {
+        templateUrl: 'app/views/checkout/checkoutOne.html',
+      })
+
+      .state('checkout.stepTwo', {
+        templateUrl: 'app/views/checkout/checkoutTwo.html',
+      })
+
+      .state('checkout.stepThree', {
+        templateUrl: 'app/views/checkout/checkoutThree.html',
+      });;
+
 
 
       // .state('about', {

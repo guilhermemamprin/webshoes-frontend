@@ -1,0 +1,67 @@
+div(ng-include="'app/views/base.html'")
+#all
+  #content
+    .container
+      .col-md-12
+        ul.breadcrumb
+          li
+            a(href='#') Home
+          li Checkout - Address
+      #checkout.col-md-9
+        .box
+          form
+            h1 Checkout
+            ul.nav.nav-pills.nav-justified
+              li(ng-class="checkoutCtrl.$state.$current.name === 'checkout.stepOne' ? 'active' : 'disabled'")
+                a(ui-sref="checkout.stepOne")
+                  i.fa.fa-map-marker
+                  br
+                  | Endereço
+              li(ng-class="checkoutCtrl.$state.$current.name === 'checkout.stepTwo' ? 'active' : 'disabled'")
+                a(ui-sref="checkout.stepTwo")
+                  i.fa.fa-money
+                  br
+                  | Método de Pagamento
+              li(ng-class="checkoutCtrl.$state.$current.name === 'checkout.stepThree' ? 'active' : 'disabled'")
+                a(ui-sref="checkout.stepThree")
+                  i.fa.fa-eye
+                  br
+                  | Resumo do Pedido
+            .content(ui-view)
+              
+
+              
+            .box-footer
+              .pull-left
+                a.btn.btn-default(ui-sref="cart")
+                  i.fa.fa-chevron-left
+                  | Voltar ao Carrinho
+              .pull-right
+                button.btn.btn-primary(ng-if="checkoutCtrl.$state.$current.name === 'checkout.stepThree'" ng-click="checkoutCtrl.doCheckout()")
+                  | Finalizar pedido
+                  i.fa.fa-chevron-right
+        // /.box
+      // /.col-md-9
+      .col-md-3(ng-if="checkoutCtrl.$state.$current.name === 'checkout.stepThree'")
+        #order-summary.box
+          .box-header
+            h3 Resumo da Compra
+          p.text-muted
+            | Frete e impostos são calculados de acordo com o seu endereço.
+          .table-responsive
+            table.table
+              tbody
+                tr
+                  td Subtotal da compra
+                  th {{checkoutCtrl.calculateTotal()}}
+                tr
+                  td Frete
+                  th {{checkoutCtrl.formattedFreight}}
+                tr
+                  td Impostos
+                  th R$0,00
+                tr.total
+                  td Total
+                  th {{checkoutCtrl.totalWithFreight}}
+
+iv(ng-include="'app/views/footer.html'")

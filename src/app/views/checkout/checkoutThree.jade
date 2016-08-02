@@ -1,0 +1,50 @@
+.row
+  .col-md-12
+    h3 Resumo
+  .col-md-5
+    .panel.panel-default.sidebar-menu
+      .panel-heading
+        h3.panel-title Endereço
+      .panel-body
+        ul.nav.nav-pills.nav-stacked
+          li {{checkoutCtrl.chosenAddress.address}}, {{checkoutCtrl.chosenAddress.number}}, {{checkoutCtrl.chosenAddress.city}}, {{checkoutCtrl.chosenAddress.state}}
+          li CEP: {{checkoutCtrl.chosenAddress.cep}}
+
+  .col-md-5
+      .panel.panel-default.sidebar-menu
+        .panel-heading
+          h3.panel-title
+            i.fa.fa-credit-card
+            | Cartão
+        .panel-body
+          ul.nav.nav-pills.nav-stacked
+            li
+              b Número do cartão: 
+              | {{checkoutCtrl.chosenCard.number}}
+  .col-md-10
+    table.table
+              thead
+                tr
+                  th(colspan='2') Produto
+                  th Quantidade
+                  th Preço unitário
+                  th Desconto
+                  th(colspan='2') Total
+              tbody
+                tr(ng-repeat="product in checkoutCtrl.productList")
+                  td
+                    a(href='#')
+                      img(ng-src='{{product.img1}}')
+                  td
+                    a(href='#') {{product.name}}
+                  td
+                    input.form-control(type='number', ng-model='product.quantity' ng-change='cart.changeProductQuantity(product)')
+                  td {{checkoutCtrl.formatMoney(product.price)}}
+                  td R$0.00
+                  td {{checkoutCtrl.formatMoney(product.price * product.quantity)}}
+             
+              tfoot
+                tr
+                  th(colspan='5') Total
+                  th(colspan='2') {{checkoutCtrl.calculateTotal()}}
+

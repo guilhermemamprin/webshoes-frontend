@@ -22,16 +22,16 @@ div(id="all")
               .flip-container
                 .flipper
                   .front
-                    a(href='detail.html')
+                    a(href='/product/{{product.id}}')
                       img.img-responsive(ng-src = '{{product.img1}}', alt='')
                   .back
-                    a(href='detail.html')
+                    a(href='/product/{{product.id}}')
                       img.img-responsive(ng-src = '{{product.img2}}', alt='')
               a.invisible(href='detail.html')
                 img.img-responsive(ng-src = '{{product.img3}}', alt='')
               .text
                 h3
-                  a(href='detail.html') {{product.name}}
+                  a(href='/product/{{product.id}}') {{product.name}}
                 p.price R$ {{product.price}}
       hr
       .footer

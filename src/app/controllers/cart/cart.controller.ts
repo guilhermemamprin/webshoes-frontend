@@ -112,9 +112,9 @@ module webShoes {
       if (this.isLoggedIn()) {
         this.$http({
             method  : 'DELETE',
-            url     :  this.rootUrl + '/cart',
+            url     :  this.rootUrl + '/cart?productId='+cartEntry.productId,
             headers :  {'x-authentication': userToken},
-             data    :  {productId: Number(cartEntry.productId)}
+            data    :  {productId: Number(cartEntry.productId)}
           }).then((response: any) => {
             this.removeProductFromCartLocal(cartEntry);
 
@@ -175,11 +175,13 @@ module webShoes {
             method  : 'GET',
             url     :  this.rootUrl + '/products/' + cartEntry.productId,
           }).then((response: any) => {
-            let product: Product = <Product>_.get(response, 'data.product');
-            product.quantity = cartEntry.quantity;
-            this.productList.push(product);
-            this.itemsInCart = this.productList.length;
-            this.$window.localStorage.setItem('cart', JSON.stringify(this.productList));
+            let product: Product = <Product>_.get(response, 'data.product', null);
+            if (product != null) {
+              product.quantity = cartEntry.quantity;
+              this.productList.push(product);
+              this.itemsInCart = this.productList.length;
+              this.$window.localStorage.setItem('cart', JSON.stringify(this.productList));
+            }
             this.$state.go('cart');
           }, (errorResponse: any) => {
             alert('Erro: ' + _.get(errorResponse, 'data.message'));

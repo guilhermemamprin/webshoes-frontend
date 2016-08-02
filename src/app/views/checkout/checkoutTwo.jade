@@ -1,0 +1,39 @@
+.row
+  .col-md-12
+    h3 Escolha seu cartão:
+  .col-md-3
+    .panel.panel-default.sidebar-menu
+      .panel-heading
+        h3.panel-title Endereço
+      .panel-body
+        ul.nav.nav-pills.nav-stacked
+          li {{checkoutCtrl.chosenAddress.address}}, {{checkoutCtrl.chosenAddress.number}}, {{checkoutCtrl.chosenAddress.city}}, {{checkoutCtrl.chosenAddress.state}}
+          li CEP: {{checkoutCtrl.chosenAddress.cep}}
+
+  .col-md-3(ng-repeat="card in checkoutCtrl.cardList")
+      .panel.panel-default.sidebar-menu
+        .panel-heading
+          h3.panel-title
+            i.fa.fa-credit-card
+            | {{card.name}}
+        .panel-body
+          ul.nav.nav-pills.nav-stacked
+            li
+              b Número do cartão: 
+              | {{card.number}}
+            li
+              a(ng-click="checkoutCtrl.chooseCard(card)") Escolher
+
+  .col-md-3(ng-if="checkoutCtrl.cardList.length == 0")
+    h3 Cadastrar Cartão
+    form
+      .form-group
+        label(for='name') Número do cartão
+        |                                 
+        input#name.form-control(type='text' ng-model="userCtrl.user.name")
+      |                             
+      .form-group
+        label(for='email') Email
+        |                                 
+        input#email.form-control(ng-model='userCtrl.user.email' type='email')
+      |      
