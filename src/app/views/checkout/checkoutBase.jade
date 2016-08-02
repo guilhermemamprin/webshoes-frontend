@@ -1,0 +1,67 @@
+div(ng-include="'app/views/base.html'")
+#all
+  #content
+    .container
+      .col-md-12
+        ul.breadcrumb
+          li
+            a(href='#') Home
+          li Checkout - Address
+      #checkout.col-md-9
+        .box
+          form(method='post', action='checkout2.html')
+            h1 Checkout
+            ul.nav.nav-pills.nav-justified
+              li(ng-class="checkoutCtrl.$state.$current.name === 'checkout.stepOne' ? 'active' : 'disabled'")
+                a(ui-sref="checkout.stepOne")
+                  i.fa.fa-map-marker
+                  br
+                  | Endereço
+              li(ng-class="checkoutCtrl.$state.$current.name === 'checkout.stepTwo' ? 'active' : 'disabled'")
+                a(ui-sref="checkout.stepTwo")
+                  i.fa.fa-money
+                  br
+                  | Método de Pagamento
+              li(ng-class="checkoutCtrl.$state.$current.name === 'checkout.stepThree' ? 'active' : 'disabled'")
+                a(ui-sref="checkout.stepThree")
+                  i.fa.fa-eye
+                  br
+                  | Resumo do Pedido
+            .content(ui-view)
+              
+
+              
+            .box-footer
+              .pull-left
+                a.btn.btn-default(href='basket.html')
+                  i.fa.fa-chevron-left
+                  | Back to basket
+              .pull-right
+                button.btn.btn-primary(type='submit')
+                  | Continue to Delivery Method
+                  i.fa.fa-chevron-right
+        // /.box
+      // /.col-md-9
+      .col-md-3
+        #order-summary.box
+          .box-header
+            h3 Order summary
+          p.text-muted
+            | Shipping and additional costs are calculated based on the values you have entered.
+          .table-responsive
+            table.table
+              tbody
+                tr
+                  td Subtotal da compra
+                  th {{checkoutCtrl.calculateTotal()}}
+                tr
+                  td Frete
+                  th {{checkoutCtrl.formattedFreight}}
+                tr
+                  td Tax
+                  th $0.00
+                tr.total
+                  td Total
+                  th {{checkoutCtrl.totalWithFreight}}
+
+iv(ng-include="'app/views/footer.html'")

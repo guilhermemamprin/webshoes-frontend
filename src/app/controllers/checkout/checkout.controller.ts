@@ -13,6 +13,16 @@ module webShoes {
     size       : string;
   }
 
+  class Address {
+    cep          : string;
+    address      : string;
+    number       : string;
+    city         : string;
+    state        : string;
+    owner        : string;
+    id           : number;
+  }
+
   class CartEntry {
     productId     :   number;
     quantity      :   number;
@@ -22,11 +32,28 @@ module webShoes {
     productList   :  Array<Product>
   }
 
-  export class CartController {
+  class Card {
+    name    : string;
+    card    : string;
+  }
+
+  export class CheckoutController {
     public $http        : any;
     public $window      : ng.IWindowService;
+
     public productList  : Array<Product> = [];
-    public itemsInCart  :  number;
+    public addressList  : Array<Address> = [];
+    public cardList     : Array<Card>    = [];
+
+    public itemsInCart  : number;
+
+    public chosenAddress: Address;
+    public chosenCard   : Card;
+    public freight      : string;
+
+    public formattedFreight: string
+    public totalWithFreight: string
+
     public rootUrl      : string = 'http://webshoes-backend.herokuapp.com';
 
     private $state      : any;
@@ -38,7 +65,18 @@ module webShoes {
       this.$state = $state;
       this.$stateParams = $stateParams;
 
+      let userToken =  this.$window.localStorage.getItem('token');
+      if (!this.isLoggedIn()) {
+        this.$state.go("signup");
+      }
+
+      if(this.$state.$current.name = 'checkout') {
+        this.$state.go('checkout.stepOne');
+      }
+
+      this.getAddresses();
       this.getProducts();
+      this.getCards();
 
       if(_.get($stateParams, 'productId', false)) {
         this.updateCart();
@@ -66,6 +104,54 @@ module webShoes {
       }
     }
 
+     getCards() : void {
+    
+      let userToken =  this.$window.localStorage.getItem('token');
+      if (this.isLoggedIn()) {
+        this.$http({
+            method  : 'GET',
+            url     :  this.rootUrl + '/card',
+            headers :  {'x-authentication': userToken}
+          }).then((response: any) => {
+            this.cardList = response.data.cards;
+            
+
+          }, (errorResponse: any) => {
+            alert('Erro: ' + _.get(errorResponse, 'data.message'));
+            
+        });
+      }
+    }
+
+
+    getAddresses() : void {
+    
+      let userToken =  this.$window.localStorage.getItem('token');
+      if (this.isLoggedIn()) {
+        this.$http({
+            method  : 'GET',
+            url     :  this.rootUrl + '/address',
+            headers :  {'x-authentication': userToken}
+          }).then((response: any) => {
+            this.addressList = response.data.addresses;
+
+          }, (errorResponse: any) => {
+            alert('Erro: ' + _.get(errorResponse, 'data.message'));
+        });
+      }
+    }
+
+    chooseAddress(address: Address) : void {
+      this.chosenAddress = address;
+      this.$state.go("checkout.stepTwo");
+    }
+
+    chooseCard(card: Card) : void {
+      this.chosenCard = card;
+      this.getFreight();
+      this.$state.go("checkout.stepThree");
+    }
+
     formatMoney(x:  number) : string {
       return "R$" + Math.round(x * Math.pow(10,2) )/ Math.pow(10 ,2);
     }
@@ -77,6 +163,29 @@ module webShoes {
       });
 
       return this.formatMoney(total);
+    }
+
+    calculateTotalWithFreight(): string {
+      let total:  number = 0;
+      _.forEach(this.productList, (product: any) => {
+        total += product.quantity * product.price;
+      });
+
+      return this.formatMoney(total + Number(this.freight));
+    }
+
+    getFreight(): void {
+      this.$http({
+            method  : 'GET',
+            url     :  this.rootUrl + '/freight/' + this.chosenAddress.cep,
+          }).then((response: any) => {
+            this.freight = _.get(response, 'data.result.price', '0');
+            this.formattedFreight = this.formatMoney(Number(this.freight));
+            this.totalWithFreight = this.calculateTotalWithFreight();
+
+          }, (errorResponse: any) => {
+            alert('Erro: ' + _.get(errorResponse, 'data.message'));
+        });
     }
 
     loadLocalCart() : void {
@@ -112,9 +221,9 @@ module webShoes {
       if (this.isLoggedIn()) {
         this.$http({
             method  : 'DELETE',
-            url     :  this.rootUrl + '/cart?productId='+cartEntry.productId,
+            url     :  this.rootUrl + '/cart',
             headers :  {'x-authentication': userToken},
-            data    :  {productId: Number(cartEntry.productId)}
+             data    :  {productId: Number(cartEntry.productId)}
           }).then((response: any) => {
             this.removeProductFromCartLocal(cartEntry);
 
@@ -175,13 +284,11 @@ module webShoes {
             method  : 'GET',
             url     :  this.rootUrl + '/products/' + cartEntry.productId,
           }).then((response: any) => {
-            let product: Product = <Product>_.get(response, 'data.product', null);
-            if (product != null) {
-              product.quantity = cartEntry.quantity;
-              this.productList.push(product);
-              this.itemsInCart = this.productList.length;
-              this.$window.localStorage.setItem('cart', JSON.stringify(this.productList));
-            }
+            let product: Product = <Product>_.get(response, 'data.product');
+            product.quantity = cartEntry.quantity;
+            this.productList.push(product);
+            this.itemsInCart = this.productList.length;
+            this.$window.localStorage.setItem('cart', JSON.stringify(this.productList));
             this.$state.go('cart');
           }, (errorResponse: any) => {
             alert('Erro: ' + _.get(errorResponse, 'data.message'));
