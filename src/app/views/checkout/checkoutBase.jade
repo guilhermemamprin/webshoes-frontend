@@ -33,21 +33,21 @@ div(ng-include="'app/views/base.html'")
               
             .box-footer
               .pull-left
-                a.btn.btn-default(href='basket.html')
+                a.btn.btn-default(ui-sref="cart")
                   i.fa.fa-chevron-left
-                  | Back to basket
+                  | Voltar ao Carrinho
               .pull-right
-                button.btn.btn-primary(type='submit')
-                  | Continue to Delivery Method
+                button.btn.btn-primary(ng-if="checkoutCtrl.$state.$current.name === 'checkout.stepThree'" ng-click="checkoutCtrl.doCheckout()")
+                  | Finalizar pedido
                   i.fa.fa-chevron-right
         // /.box
       // /.col-md-9
-      .col-md-3
+      .col-md-3(ng-if="checkoutCtrl.$state.$current.name === 'checkout.stepThree'")
         #order-summary.box
           .box-header
-            h3 Order summary
+            h3 Resumo da Compra
           p.text-muted
-            | Shipping and additional costs are calculated based on the values you have entered.
+            | Frete e impostos são calculados de acordo com o seu endereço.
           .table-responsive
             table.table
               tbody
@@ -58,8 +58,8 @@ div(ng-include="'app/views/base.html'")
                   td Frete
                   th {{checkoutCtrl.formattedFreight}}
                 tr
-                  td Tax
-                  th $0.00
+                  td Impostos
+                  th R$0,00
                 tr.total
                   td Total
                   th {{checkoutCtrl.totalWithFreight}}
