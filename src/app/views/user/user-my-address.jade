@@ -1,7 +1,7 @@
 div(ng-include="'app/views/base.html'")
 div(id="all")
   div(id="content")
-    .container(ng-if='myAccountCtrl.hasAddrs == true')
+    .container
       .col-md-3
         .panel.panel-default.sidebar-menu
           .panel-heading
@@ -21,7 +21,7 @@ div(id="all")
                   i.fa.fa-sign-out
                   |  Logout
 
-      .col-md-4
+      .col-md-4(ng-if='myAccountCtrl.hasAddrs == true')
         h2 DADOS DO COMPRADOR
         .box
             b Endereço: 
@@ -39,30 +39,35 @@ div(id="all")
             b Cidade: 
             | {{myAccountCtrl.clientAddrss.city}}
             br
-      .col-md-4
+      .col-md-4(ng-if='myAccountCtrl.hasAddrs == true')
         h2 ENDEREÇO DE ENTREGA
         .box
           b Endereço: 
-            | {{myAccountCtrl.updatedAddrss.address}}
-            br
-            br
-            b Número: 
-            | {{myAccountCtrl.updatedAddrss.number}}
-            br
-            br
-            b Estado: 
-            | {{myAccountCtrl.updatedAddrss.state}}
-            br
-            br
-            b Cidade: 
-            | {{myAccountCtrl.updatedAddrss.city}}
-            br
+          | {{myAccountCtrl.updatedAddrss.address}}
+          br
+          br
+          b Número: 
+          | {{myAccountCtrl.updatedAddrss.number}}
+          br
+          br
+          b Estado: 
+          | {{myAccountCtrl.updatedAddrss.state}}
+          br
+          br
+          b Cidade: 
+          | {{myAccountCtrl.updatedAddrss.city}}
+          br
+          br
+          .text-center
+            button.btn.btn-primary(ui-sref="newAddress")
+              i.fa.fa-save
+              |  Adicionar novo endereço
     .container(ng-if='myAccountCtrl.hasAddrs == false')
       .col-md-12
           div
             h2 OPS! Não localizamos nenhum endereço cadastrado
             .col-sm-12.text-left
-              button.btn.btn-primary(type='submit')
+              button.btn.btn-primary(type='submit' ui-sref="newAddress")
                 i.fa.fa-save
                 |  Adicionar novo endereço
 

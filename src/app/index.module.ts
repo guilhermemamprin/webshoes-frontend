@@ -102,6 +102,13 @@ module webShoes {
         templateUrl: 'app/views/user/user-my-address.html',
         controller: 'MyAccountController',
         controllerAs: 'myAccountCtrl'
+      })
+
+      .state('newAddress', {
+        url: '/newAddress',
+        templateUrl: 'app/views/user/newAddress.html',
+        controller: 'MyAccountController',
+        controllerAs: 'myAccountCtrl'
       });
 
       // .state('about', {
