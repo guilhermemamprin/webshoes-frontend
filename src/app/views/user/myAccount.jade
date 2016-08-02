@@ -1,0 +1,98 @@
+div(ng-include="'app/views/base.html'")
+div(id="all")
+  div(id="content")
+    .container
+      .col-md-3
+        .panel.panel-default.sidebar-menu
+          .panel-heading
+            h3.panel-title Area do cliente
+          .panel-body
+            ul.nav.nav-pills.nav-stacked
+              li.active
+                a(ui-sref="myAccount")
+                  i.fa.fa-list
+                  |  Minha conta
+              li
+                a(ui-sref="myAddress")
+                  i.fa.fa-heart
+                  |  Meus endereços
+              li
+                a(href='index.html')
+                  i.fa.fa-sign-out
+                  |  Logout
+
+      .col-md-9
+        .box
+          h1 Minha Conta
+          p.lead Altere seus dados pessoais
+          h3 Mudar senha
+          form
+            .row
+              .col-sm-6
+                .form-group
+                  label(for='password_old') Senha atual
+                  input#password_old.form-control(type='password')
+            .row
+              .col-sm-6
+                .form-group
+                  label(for='password_1') Nova senha
+                  input#password_1.form-control(type='password')
+              .col-sm-6
+                .form-group
+                  label(for='password_2') Confirmar nova senha
+                  input#password_2.form-control(type='password')
+            // /.row
+            .col-sm-12.text-center
+              button.btn.btn-primary(type='submit')
+                i.fa.fa-save
+                |  Salvar nova senha
+          br
+          h3 Detalhes Pessoais
+          form
+            .row
+              .col-sm-6
+                .form-group
+                  label(for='firstname') Nome
+                  input#firstname.form-control(type='text')
+              .col-sm-6
+                .form-group
+                  label(for='lastname') Sobrenome
+                  input#lastname.form-control(type='text')
+            // /.row
+            .row
+              .col-sm-12
+                .form-group
+                  label(for='street') Rua
+                  input#street.form-control(type='text')
+            // /.row
+            .row
+              .col-sm-6.col-md-4
+                .form-group
+                  label(for='zip') CEP
+                  input#zip.form-control(type='text')
+              .col-sm-6.col-md-4
+                .form-group
+                  label(for='state') Estado
+                  select#state.form-control
+              .col-sm-6.col-md-4
+                .form-group
+                  label(for='country') Pais
+                  select#country.form-control
+              .col-sm-6.col-md-3
+                .form-group
+                  label(for='phone') Telefone
+                  input#phone.form-control(type='text')
+              .col-sm-6.col-md-3
+                .form-group
+                  label(for='phone') celular
+                  input#phone.form-control(type='text')
+              .col-sm-6
+                .form-group
+                  label(for='email') Email
+                  input#email.form-control(type='text')
+              .col-sm-12.text-center
+                button.btn.btn-primary(type='submit')
+                  i.fa.fa-save
+                  |  Salvar alterações
+
+div(ng-include="'app/views/footer.html'")

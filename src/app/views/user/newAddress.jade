@@ -1,0 +1,38 @@
+div(ng-include="'app/views/base.html'")
+div(id="all")
+  div(id="content")
+    .container
+      .col-md-12
+        .box
+          h3 Novo Endereço
+          form
+            .row
+              .col-sm-8.col-md-8
+                .form-group
+                  label(for='street') Rua
+                  input#street.form-control(type='text' ng-model='myAccountCtrl.newAddress.address')
+              .col-sm-8.col-md-4
+                .form-group
+                  label(for='number') Número
+                  input#street.form-control(type='number' ng-model='myAccountCtrl.newAddress.number')
+            .row
+              .col-sm-6.col-md-4
+                .form-group
+                  label(for='zip') CEP
+                  input#zip.form-control(type='text' ng-model='myAccountCtrl.newAddress.cep')
+            .row
+              .col-sm-6.col-md-6
+                .form-group
+                  label(for='state') Estado
+                  select#state.form-control(ng-model='myAccountCtrl.newAddress.state')
+                    option(ng-repeat='option in myAccountCtrl.availableState', value='{{option.id}}') {{option.name}}
+              .col-sm-6.col-md-6
+                .form-group
+                  label(for='city') Cidade
+                  input#city.form-control(type='text' ng-model='myAccountCtrl.newAddress.city')
+              .col-sm-12.text-center
+                button.btn.btn-primary(ng-click = 'myAccountCtrl.saveNewAddress()')
+                  i.fa.fa-save
+                  |  Salvar Endereço
+
+div(ng-include="'app/views/footer.html'")

@@ -2,6 +2,7 @@
 
 /// <reference path="controllers/main.controller.ts" />
 /// <reference path="controllers/user/user.controller.ts" />
+/// <reference path="controllers/user/myAccount.controller.ts" />
 /// <reference path="controllers/cart/cart.controller.ts" />
 
 /// <reference path="auth/auth.controller.ts" />
@@ -21,8 +22,7 @@ module webShoes {
     .controller('ProductController', ProductController)
     .controller('ProductDetailController', ProductDetailController)
     .controller('CheckoutController', CheckoutController)
-
-
+    .controller('MyAccountController', MyAccountController)
 
   .config(function ($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider, $locationProvider) {
     $stateProvider
@@ -64,7 +64,6 @@ module webShoes {
         controller: 'ProductController',
         controllerAs: 'productCtrl'
       })
-
         .state('productDetail', {
         url: '/product/:productId',
         templateUrl: 'app/views/product/productDetail.html',
@@ -91,7 +90,26 @@ module webShoes {
         templateUrl: 'app/views/checkout/checkoutThree.html',
       });;
 
+      .state('myAccount', {
+        url: '/myAccount',
+        templateUrl: 'app/views/user/myAccount.html',
+        controller: 'UserController',
+        controllerAs: 'userCtrl'
+      })
 
+      .state('myAddress', {
+        url: '/myAddress',
+        templateUrl: 'app/views/user/user-my-address.html',
+        controller: 'MyAccountController',
+        controllerAs: 'myAccountCtrl'
+      })
+
+      .state('newAddress', {
+        url: '/newAddress',
+        templateUrl: 'app/views/user/newAddress.html',
+        controller: 'MyAccountController',
+        controllerAs: 'myAccountCtrl'
+      });
 
       // .state('about', {
       //   url: '/about',
