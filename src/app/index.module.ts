@@ -88,7 +88,7 @@ module webShoes {
 
       .state('checkout.stepThree', {
         templateUrl: 'app/views/checkout/checkoutThree.html',
-      });;
+      })
 
       .state('myAccount', {
         url: '/myAccount',
