@@ -31,6 +31,7 @@ module webShoes {
 
     private $state      : any;
     private $stateParams: any;
+    private callingService: boolean = false;
 
     constructor ($stateParams: any, $http: any, $window: ng.IWindowService, $state: any) {
       this.$http = $http;
@@ -137,18 +138,41 @@ module webShoes {
       this.$state.go('cart');
     }
 
-    addProductToCart(cartEntry: CartEntry) : void {
+    emptyCart(): void {
       let userToken =  this.$window.localStorage.getItem('token');
       if (this.isLoggedIn()) {
+        this.$http({
+            method  : 'POST',
+            url     :  this.rootUrl + '/emptyCart',
+            headers :  {'x-authentication': userToken}
+          }).then((response: any) => {
+            this.getProducts();
+          }, (errorResponse: any) => {
+            alert('Erro: ' + _.get(errorResponse, 'data.message'));
+        });
+      } else {
+        this.productList = [];
+        this.itemsInCart = 0;
+        this.$window.localStorage.setItem('cart', JSON.stringify(this.productList));
+      }
+    }
+
+    addProductToCart(cartEntry: CartEntry) : void {
+      let userToken =  this.$window.localStorage.getItem('token');
+      if (this.isLoggedIn() && !this.callingService) {
+        this.callingService = true;
         this.$http({
             method  : 'POST',
             url     :  this.rootUrl + '/cart',
             headers :  {'x-authentication': userToken},
             data    :  {productId: Number(cartEntry.productId), quantity: Number(cartEntry.quantity)}
           }).then((response: any) => {
+            this.callingService = false;
+            this.getProducts();
             this.addProductToCartLocal(cartEntry);
 
           }, (errorResponse: any) => {
+            this.callingService = false;
             alert('Erro: ' + _.get(errorResponse, 'data.message'));
         });
       } else {

@@ -98,6 +98,22 @@ module webShoes {
       }
     }
 
+    createCard(card: Card) : void {
+      let userToken =  this.$window.localStorage.getItem('token');
+      this.$http({
+            method  : 'POST',
+            url     :  this.rootUrl + '/card',
+            headers :  {'x-authentication': userToken},
+            data    :  card
+          }).then((response: any) => {
+            this.chosenCard = card;
+            this.$state.go("checkout.stepThree");
+          }, (errorResponse: any) => {
+            alert('Erro: ' + _.get(errorResponse, 'data.message'));            
+        });
+      }
+    
+
      getCards() : void {
     
       let userToken =  this.$window.localStorage.getItem('token');

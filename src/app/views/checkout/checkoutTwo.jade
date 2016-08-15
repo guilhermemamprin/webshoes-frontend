@@ -24,16 +24,17 @@
             li
               a(ng-click="checkoutCtrl.chooseCard(card)") Escolher
 
-  .col-md-3(ng-if="checkoutCtrl.cardList.length == 0")
+  .col-md-4(ng-if="checkoutCtrl.cardList.length == 0")
     h3 Cadastrar Cartão
     form
       .form-group
-        label(for='name') Número do cartão
+        label(for='name') Nome como impresso no cartão
         |                                 
-        input#name.form-control(type='text' ng-model="userCtrl.user.name")
+        input#name.form-control(type='text' ng-model="newCard.name")
       |                             
       .form-group
-        label(for='email') Email
+        label(for='email') Número
         |                                 
-        input#email.form-control(ng-model='userCtrl.user.email' type='email')
-      |      
+        input#email.form-control(ng-model='newCard.card')
+
+      button.btn.btn-primary(ng-click="checkoutCtrl.createCard(newCard)") Salvar   
