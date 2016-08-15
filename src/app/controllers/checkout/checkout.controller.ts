@@ -107,6 +107,7 @@ module webShoes {
             data    :  card
           }).then((response: any) => {
             this.chosenCard = card;
+            this.$state.go("checkout.stepThree");
           }, (errorResponse: any) => {
             alert('Erro: ' + _.get(errorResponse, 'data.message'));            
         });

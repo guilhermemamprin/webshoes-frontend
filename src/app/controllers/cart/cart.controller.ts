@@ -138,6 +138,25 @@ module webShoes {
       this.$state.go('cart');
     }
 
+    emptyCart(): void {
+      let userToken =  this.$window.localStorage.getItem('token');
+      if (this.isLoggedIn()) {
+        this.$http({
+            method  : 'POST',
+            url     :  this.rootUrl + '/emptyCart',
+            headers :  {'x-authentication': userToken}
+          }).then((response: any) => {
+            this.getProducts();
+          }, (errorResponse: any) => {
+            alert('Erro: ' + _.get(errorResponse, 'data.message'));
+        });
+      } else {
+        this.productList = [];
+        this.itemsInCart = 0;
+        this.$window.localStorage.setItem('cart', JSON.stringify(this.productList));
+      }
+    }
+
     addProductToCart(cartEntry: CartEntry) : void {
       let userToken =  this.$window.localStorage.getItem('token');
       if (this.isLoggedIn() && !this.callingService) {

@@ -52,9 +52,9 @@ div(id="all")
                   i.fa.fa-chevron-left
                   |  Continuar comprando
               .pull-right
-                button.btn.btn-default
-                  i.fa.fa-refresh
-                  |  Atualizar Carrinho
+                button.btn.btn-default(ng-click="cart.emptyCart()")
+                  i.fa.fa-trash-o
+                  |  Esvaziar carrinho
                 button.btn.btn-primary(ui-sref="checkout.stepOne")
                   | Finalizar compra 
                   i.fa.fa-chevron-right

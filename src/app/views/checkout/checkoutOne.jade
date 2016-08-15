@@ -1,5 +1,5 @@
 .row
-  .col-md-12
+  .col-md-12(ng-if="checkoutCtrl.addressList.length>0")
     h3 Escolha seu Endereço:
   .col-md-3(ng-repeat="address in checkoutCtrl.addressList")
     .panel.panel-default.sidebar-menu
@@ -11,3 +11,11 @@
             CEP: {{address.cep}}
           li
             a(ng-click="checkoutCtrl.chooseAddress(address)") Escolher
+
+  .col-md-12(ng-if="checkoutCtrl.addressList.length<=0")
+    div
+      h2 OPS! Não localizamos nenhum endereço cadastrado
+      .col-sm-12.text-left
+        button.btn.btn-primary(type='submit' ui-sref="newAddress")
+          i.fa.fa-save
+          |  Adicionar novo endereço
