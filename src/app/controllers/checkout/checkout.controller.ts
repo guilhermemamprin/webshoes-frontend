@@ -78,7 +78,6 @@ module webShoes {
       this.getAddresses();
       this.getProducts();
       this.getCards();
-            
     }
 
     getProducts() : void {
@@ -226,7 +225,7 @@ module webShoes {
         });
     }
 
-    private isLoggedIn(): boolean {
+    public isLoggedIn(): boolean {
       let userToken =  this.$window.localStorage.getItem('token');
       return (userToken != null && userToken.length > 0);
     }
