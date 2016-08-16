@@ -50,6 +50,7 @@ module webShoes {
     public chosenAddress: Address;
     public chosenCard   : Card;
     public freight      : string;
+    public paymentWithCard : boolean = false;
 
     public formattedFreight: string
     public totalWithFreight: string
@@ -131,6 +132,14 @@ module webShoes {
       }
     }
 
+    payWithCard() : void {
+      this.paymentWithCard = true;
+    }
+
+    payWithBillet() : void {
+      this.$state.go("checkout.stepThree");
+    }
+
     getAddresses() : void {
     
       let userToken =  this.$window.localStorage.getItem('token');
@@ -158,6 +167,8 @@ module webShoes {
       this.getFreight();
       this.$state.go("checkout.stepThree");
     }
+
+
 
     formatMoney(x:  number) : string {
       return "R$" + Math.round(x * Math.pow(10,2) )/ Math.pow(10 ,2);

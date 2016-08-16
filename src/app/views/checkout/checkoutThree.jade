@@ -10,7 +10,7 @@
           li {{checkoutCtrl.chosenAddress.address}}, {{checkoutCtrl.chosenAddress.number}}, {{checkoutCtrl.chosenAddress.city}}, {{checkoutCtrl.chosenAddress.state}}
           li CEP: {{checkoutCtrl.chosenAddress.cep}}
 
-  .col-md-5
+  .col-md-5(ng-if="checkoutCtrl.paymentWithCard")
       .panel.panel-default.sidebar-menu
         .panel-heading
           h3.panel-title
