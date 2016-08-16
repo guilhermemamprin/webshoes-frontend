@@ -11,83 +11,40 @@ div(id="all")
               li.active
                 a(ui-sref="myAccount")
                   i.fa.fa-list
-                  |  Minha conta
+                  |  Meus pedidos
               li
                 a(ui-sref="myAddress")
                   i.fa.fa-heart
                   |  Meus endereços
+
       .col-md-9
         .box
-          h1 Minha Conta
-          p.lead Altere seus dados pessoais
-          h3 Mudar senha
-          form
-            .row
-              .col-sm-6
-                .form-group
-                  label(for='password_old') Senha atual
-                  input#password_old.form-control(type='password')
-            .row
-              .col-sm-6
-                .form-group
-                  label(for='password_1') Nova senha
-                  input#password_1.form-control(type='password')
-              .col-sm-6
-                .form-group
-                  label(for='password_2') Confirmar nova senha
-                  input#password_2.form-control(type='password')
-            // /.row
-            .col-sm-12.text-center
-              button.btn.btn-primary(type='submit')
-                i.fa.fa-save
-                |  Salvar nova senha
-          br
-          h3 Detalhes Pessoais
-          form
-            .row
-              .col-sm-6
-                .form-group
-                  label(for='firstname') Nome
-                  input#firstname.form-control(type='text')
-              .col-sm-6
-                .form-group
-                  label(for='lastname') Sobrenome
-                  input#lastname.form-control(type='text')
-            // /.row
-            .row
-              .col-sm-12
-                .form-group
-                  label(for='street') Rua
-                  input#street.form-control(type='text')
-            // /.row
-            .row
-              .col-sm-6.col-md-4
-                .form-group
-                  label(for='zip') CEP
-                  input#zip.form-control(type='text')
-              .col-sm-6.col-md-4
-                .form-group
-                  label(for='state') Estado
-                  select#state.form-control
-              .col-sm-6.col-md-4
-                .form-group
-                  label(for='country') Pais
-                  select#country.form-control
-              .col-sm-6.col-md-3
-                .form-group
-                  label(for='phone') Telefone
-                  input#phone.form-control(type='text')
-              .col-sm-6.col-md-3
-                .form-group
-                  label(for='phone') celular
-                  input#phone.form-control(type='text')
-              .col-sm-6
-                .form-group
-                  label(for='email') Email
-                  input#email.form-control(type='text')
-              .col-sm-12.text-center
-                button.btn.btn-primary(type='submit')
-                  i.fa.fa-save
-                  |  Salvar alterações
+          h1 Meus Pedidos
+          .table-responsive
+            p.lead(ng-if='orderCtrl.hasOrders == false') Não encontramos nenhum pedido
+            table.table.table-hover(ng-if='orderCtrl.hasOrders == true')
+              thead
+                tr
+                  th Pedido
+                  th Data
+                  th Total
+                  th Status
+                  th Ação
+              tbody
+                tr(ng-repeat="order in orderCtrl.orderList")
+                  th # {{order.id}}
+                  td {{orderCtrl.getDate(order.order_time)}}
+                  td R$ {{order.price}}
+                  td(ng-if='order.state == 1')
+                    span.label.label-info Pendente
+                  td(ng-if='order.state == 2')
+                    span.label.label-info Processando
+                  td(ng-if='order.state == 3')
+                    span.label.label-info Entregue
+                  td(ng-if='order.state == 4')
+                    span.label.label-info Cancelado
+                  td
+                    a.btn.btn-primary.btn-sm(ui-sref='customer-order({orderId: order.id})') visualizar
+
 
 div(ng-include="'app/views/footer.html'")

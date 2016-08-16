@@ -1,0 +1,92 @@
+div(ng-include="'app/views/base.html'")
+div(id="all")
+  div(id="content")
+    .container
+      .col-md-3
+        .panel.panel-default.sidebar-menu
+          .panel-heading
+            h3.panel-title Area do cliente
+          .panel-body
+            ul.nav.nav-pills.nav-stacked
+              li.active
+                a(ui-sref="myAccount")
+                  i.fa.fa-list
+                  |  Meus pedidos
+              li
+                a(ui-sref="myAddress")
+                  i.fa.fa-heart
+                  |  Meus endereços
+
+      #customer-order.col-md-9
+        .box
+          h1 Pedido # {{orderCtrl.selectedOrder.id}}
+          p.lead(ng-if='orderCtrl.selectedOrder.state == 1')
+            | Pedido # {{orderCtrl.selectedOrder.id}} foi realizado na data 
+            strong {{orderCtrl.getDate(orderCtrl.selectedOrder.order_time)}} 
+            | e está 
+            strong pendente
+            | .
+          p.lead(ng-if='orderCtrl.selectedOrder.state == 2')
+            | Pedido # {{orderCtrl.selectedOrder.id}} foi realizado na data 
+            strong {{orderCtrl.getDate(orderCtrl.selectedOrder.order_time)}} 
+            | e está 
+            strong em andamento
+            | .
+          p.lead(ng-if='orderCtrl.selectedOrder.state == 3')
+            | Pedido # {{orderCtrl.selectedOrder.id}} foi realizado na data 
+            strong {{orderCtrl.getDate(orderCtrl.selectedOrder.order_time)}} 
+            | e está 
+            strong Entregue
+            | .
+          p.lead(ng-if='orderCtrl.selectedOrder.state == 4')
+            | Pedido # {{orderCtrl.selectedOrder.id}} foi realizado na data 
+            strong {{orderCtrl.getDate(orderCtrl.selectedOrder.order_time)}} 
+            | e está 
+            strong cancelado
+            | .
+          .table-responsive
+            table.table
+              thead
+                tr
+                  th(colspan='2') Product
+                  th Quantity
+                  th Unit price
+                  th Discount
+                  th Total
+              tbody
+                tr(ng-repeat="item in orderCtrl.selectedOrder.items")
+                  td
+                    a(href='#')
+                      img(ng-src = '{{item.img1}}', alt='item.name')
+                  td
+                    a(href='#') {{item.name}}
+                  td {{item.quantity}}
+                  td {{orderCtrl.formatMoney(item.price)}}
+                  td $0.00
+                  td {{orderCtrl.formatMoney(item.price * item.quantity)}}
+              tfoot
+                tr
+                  th.text-right(colspan='5') subtotal
+                  th {{orderCtrl.formatMoney(orderCtrl.getSubtotal())}}
+                tr
+                  th.text-right(colspan='5') Taxa de entrega
+                  th {{orderCtrl.shipping(orderCtrl.selectedOrder.address.cep)}}
+                tr
+                  th.text-right(colspan='5') Total
+                  th {{orderCtrl.formatMoney(orderCtrl.selectedOrder.price)}}
+          // /.table-responsive
+          .row.addresses
+            .col-md-6
+              h2 Endereço de entrega
+              p
+                | {{orderCtrl.selectedOrder.user.name}}
+                br
+                | {{orderCtrl.selectedOrder.address.address}}, {{orderCtrl.selectedOrder.address.number}}
+                br
+                | {{orderCtrl.selectedOrder.address.city}}, {{orderCtrl.selectedOrder.address.state}}
+                br
+                | {{orderCtrl.selectedOrder.address.cep}}
+
+
+
+div(ng-include="'app/views/footer.html'")

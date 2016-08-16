@@ -3,6 +3,7 @@
 /// <reference path="controllers/main.controller.ts" />
 /// <reference path="controllers/user/user.controller.ts" />
 /// <reference path="controllers/user/myAccount.controller.ts" />
+/// <reference path="controllers/user/myOrders.controller.ts" />
 /// <reference path="controllers/cart/cart.controller.ts" />
 
 /// <reference path="auth/auth.controller.ts" />
@@ -23,6 +24,7 @@ module webShoes {
     .controller('ProductDetailController', ProductDetailController)
     .controller('CheckoutController', CheckoutController)
     .controller('MyAccountController', MyAccountController)
+    .controller('MyOrdersController', MyOrdersController)
 
   .config(function ($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider, $locationProvider) {
     $stateProvider
@@ -93,8 +95,15 @@ module webShoes {
       .state('myAccount', {
         url: '/myAccount',
         templateUrl: 'app/views/user/myAccount.html',
-        controller: 'UserController',
-        controllerAs: 'userCtrl'
+        controller: 'MyOrdersController',
+        controllerAs: 'orderCtrl'
+      })
+
+      .state('customer-order', {
+        url: '/order/:orderId',
+        templateUrl: 'app/views/user/customer-order.html',
+        controller: 'MyOrdersController',
+        controllerAs: 'orderCtrl'
       })
 
       .state('myAddress', {
