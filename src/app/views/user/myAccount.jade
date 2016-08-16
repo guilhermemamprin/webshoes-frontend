@@ -44,7 +44,7 @@ div(id="all")
                   td(ng-if='order.state == 4')
                     span.label.label-info Cancelado
                   td
-                    a.btn.btn-primary.btn-sm(ui-sref='customer-order.html') visualizar
+                    a.btn.btn-primary.btn-sm(ui-sref='customer-order({orderId: order.id})') visualizar
 
 
 div(ng-include="'app/views/footer.html'")

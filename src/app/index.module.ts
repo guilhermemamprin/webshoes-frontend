@@ -99,6 +99,13 @@ module webShoes {
         controllerAs: 'orderCtrl'
       })
 
+      .state('customer-order', {
+        url: '/order/:orderId',
+        templateUrl: 'app/views/user/customer-order.html',
+        controller: 'MyOrdersController',
+        controllerAs: 'orderCtrl'
+      })
+
       .state('myAddress', {
         url: '/myAddress',
         templateUrl: 'app/views/user/user-my-address.html',
